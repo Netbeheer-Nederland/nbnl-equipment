@@ -161,7 +161,7 @@ the cim:ConnectivityNode to a cim:BoundaryPoint (3).
 
 Repeat all steps above to create instances for all functions in the grid and
 associated where required. For a full example, see
-xref:schema:attachment$examples/jsonld/dp_nbnl_equipment_hv.example.jsonld[Example
+xref:schema:attachment$examples/jsonld/hv.example.jsonld[Example
 High Voltage (HV) JSON-LD instance data]. Note that the MV example data
 includes a copy of the boundary dataset for validation purposes. Do **not**
 include the boundary dataset for datasets created by a System Operator.
@@ -256,7 +256,7 @@ cim:ConnectivityNode in the create cim:VoltageLevel. This explicitly associates
 a cim:PowerTransformerEnd with a specific cim:VoltageLevel and cim:BaseVoltage.
 
 For a full example, see
-xref:schema:attachment$examples/jsonld/dp_nbnl_equipment_mv.example.jsonld[Example
+xref:schema:attachment$examples/jsonld/mv.example.jsonld[Example
 Medium Voltage (MV) JSON-LD instance data]. Note that the MV example data
 includes a copy of the boundary dataset for validation purposes. Do **not**
 include the boundary dataset for datasets created by a System Operator.
