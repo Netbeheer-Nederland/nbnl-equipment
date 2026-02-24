@@ -1,0 +1,7 @@
+# Changes here will be overwritten by Copier
+_commit: '0.1'
+_src_path: gh:Netbeheer-Nederland/template-dp
+description: Information model for the data product "NBNL Equipment"
+exchange_format: JSON-LD
+name: nbnl-equipment
+title: NBNL Equipment
