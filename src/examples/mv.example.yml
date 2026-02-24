@@ -1,0 +1,145 @@
+'@context':
+  linkml: https://w3id.org/linkml/
+  cbs: https://www.cbs.nl/nl-nl/onze-diensten/methoden/begrippen/
+  cim: https://cim.ucaiug.io/ns#
+  eu: https://cim.ucaiug.io/ns/eu#
+  nbnl: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  nl: https://cim.ucaiug.io/ns/nl#
+  skos: http://www.w3.org/2004/02/skos/core#
+  xsd: http://www.w3.org/2001/XMLSchema#
+  github: https://github.com/
+  dcterms: http://purl.org/dc/terms/
+'@id': urn:uuid:2d3088c1-2b9a-4cbc-84fa-c0670e0e8ecc
+'dcterms:title': 'MV example data'
+'dcterms:issued':
+  '@value': 2025-12-05T12:34:567Z
+  '@type': xsd:date
+'dcterms:publisher':
+  '@id': urn:uuid:4f74c8e2-adb5-4815-9607-eb00fb6a0d55
+  'dcterms:title': 'Liander'
+'dcterms:references':
+  - '@id': urn:uuid:5bdf9a6d-ef38-4c4d-a6ee-42a9accdec64
+  - '@id': urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f
+'@graph':
+  - '@id': urn:uuid:73092cf3-eed8-4a92-ac86-cf09390c39d4
+    '@type': cim:VoltageLevel
+    cim:VoltageLevel.BaseVoltage:
+      '@id': urn:uuid:45b9413e-a116-4952-8cf8-aeb4b2e53348
+    cim:VoltageLevel.Substation:
+      '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:IdentifiedObject.mRID: 73092cf3-eed8-4a92-ac86-cf09390c39d4
+  - '@id': urn:uuid:13232d25-3dd8-46f1-ad21-a77b0458648e
+    '@type': cim:ConnectivityNode
+    cim:ConnectivityNode.ConnectivityNodeContainer:
+      '@id': urn:uuid:73092cf3-eed8-4a92-ac86-cf09390c39d4
+    cim:IdentifiedObject.mRID: 13232d25-3dd8-46f1-ad21-a77b0458648e
+
+  - '@id': urn:uuid:efeba515-547b-4c1a-8cd0-4cbc5f714283
+    '@type': cim:PowerTransformer
+    cim:Equipment.EquipmentContainer:
+      '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:IdentifiedObject.mRID: efeba515-547b-4c1a-8cd0-4cbc5f714283
+
+  - '@id': urn:uuid:9cc70c8a-f352-4ad5-8743-6295e2800c63
+    '@type': cim:Terminal
+    cim:Terminal.ConnectivityNode:
+      '@id': urn:uuid:f0c14f64-3aa3-44ae-b858-18d6a75dc72a
+    cim:IdentifiedObject.mRID: 9cc70c8a-f352-4ad5-8743-6295e2800c63
+  - '@id': urn:uuid:3c052f67-8180-44a9-8bb6-f13b75e94f02
+    '@type': cim:PowerTransformerEnd
+    cim:PowerTransformerEnd.PowerTransformer:
+      '@id': urn:uuid:efeba515-547b-4c1a-8cd0-4cbc5f714283
+    cim:TransformerEnd.endNumber: 1
+    cim:TransformerEnd.Terminal:
+      '@id': urn:uuid:9cc70c8a-f352-4ad5-8743-6295e2800c63
+    cim:IdentifiedObject.mRID: 3c052f67-8180-44a9-8bb6-f13b75e94f02
+
+  - '@id': urn:uuid:4d4b29be-1386-45e1-acc3-b86cfab83c94
+    '@type': cim:Terminal
+    cim:Terminal.ConnectivityNode:
+      '@id': urn:uuid:13232d25-3dd8-46f1-ad21-a77b0458648e
+    cim:IdentifiedObject.mRID: 4d4b29be-1386-45e1-acc3-b86cfab83c94
+  - '@id': urn:uuid:3a926964-8420-4c57-8a1d-8ac87193b0c6
+    '@type': cim:PowerTransformerEnd
+    cim:PowerTransformerEnd.PowerTransformer:
+      '@id': urn:uuid:efeba515-547b-4c1a-8cd0-4cbc5f714283
+    cim:TransformerEnd.endNumber: 2
+    cim:TransformerEnd.Terminal:
+      '@id': urn:uuid:4d4b29be-1386-45e1-acc3-b86cfab83c94
+    cim:IdentifiedObject.mRID: 3a926964-8420-4c57-8a1d-8ac87193b0c6
+
+  # --- NBNL Object Register --------------------------------------------------
+
+  - '@id': urn:uuid:3061d9bc-a20e-4b72-85b7-042c731f86be
+    '@type': cim:GeographicalRegion
+    cim:IdentifiedObject.mRID: 3061d9bc-a20e-4b72-85b7-042c731f86be
+    cim:IdentifiedObject.name: 'NL'
+  - '@id': urn:uuid:4f74c8e2-adb5-4815-9607-eb00fb6a0d55
+    '@type': cim:SubGeographicalRegion
+    cim:SubGeographicalRegion.Region:
+      '@id': urn:uuid:3061d9bc-a20e-4b72-85b7-042c731f86be
+    cim:IdentifiedObject.mRID: 4f74c8e2-adb5-4815-9607-eb00fb6a0d55
+    cim:IdentifiedObject.name: 'Liander'
+  - '@id': urn:uuid:45b9413e-a116-4952-8cf8-aeb4b2e53348
+    '@type': cim:BaseVoltage
+    cim:BaseVoltage.nominalVoltage:
+      '@id': urn:uuid:95581209-d904-488a-b3f1-015b00d15025
+    cim:IdentifiedObject.description: 'Base voltage defined by ENTSO-E 10 kV'
+    cim:IdentifiedObject.mRID: 45b9413e-a116-4952-8cf8-aeb4b2e53348
+    cim:IdentifiedObject.name: 'AC-10'
+  - '@id': urn:uuid:e50ca4bd591d4c30bd6eca3635f70516
+    '@type': cim:BaseVoltage
+    cim:BaseVoltage.nominalVoltage:
+      '@id': urn:uuid:a22b6bf3-33ab-4f82-89c5-0d427625f2da
+    cim:IdentifiedObject.description: 'Base voltage defined by ENTSO-E 150 kV'
+    cim:IdentifiedObject.mRID: e50ca4bd591d4c30bd6eca3635f70516
+    cim:IdentifiedObject.name: 'AC-150'
+  - '@id': urn:uuid:95581209-d904-488a-b3f1-015b00d15025
+    '@type': cim:Voltage
+    cim:Voltage.multiplier:
+      '@id': cim:UnitMultiplier.k
+    cim:Voltage.unit:
+      '@id': cim:UnitSymbol.V
+    cim:Voltage.value:
+      '@value': 10.0
+      '@type': xsd:float
+  - '@id': urn:uuid:a22b6bf3-33ab-4f82-89c5-0d427625f2da
+    '@type': cim:Voltage
+    cim:Voltage.multiplier:
+      '@id': cim:UnitMultiplier.k
+    cim:Voltage.unit:
+      '@id': cim:UnitSymbol.V
+    cim:Voltage.value:
+      '@value': 150.0
+      '@type': xsd:float
+
+  # --- TSO Master Data (Boundary Data Set) -----------------------------------
+
+  - '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    '@type': cim:Substation
+    cim:Substation.Region:
+      '@id': urn:uuid:4f74c8e2-adb5-4815-9607-eb00fb6a0d55
+    cim:IdentifiedObject.mRID: 755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:IdentifiedObject.name: 'Station Arnhem 150'
+  - '@id': urn:uuid:69e74dbd-b68a-4e2b-8cf7-da98891de6a1
+    '@type': cim:VoltageLevel
+    cim:VoltageLevel.BaseVoltage:
+      '@id': urn:uuid:e50ca4bd591d4c30bd6eca3635f70516
+    cim:VoltageLevel.Substation:
+      '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:IdentifiedObject.mRID: 69e74dbd-b68a-4e2b-8cf7-da98891de6a1
+  - '@id': urn:uuid:f0c14f64-3aa3-44ae-b858-18d6a75dc72a
+    '@type': cim:ConnectivityNode
+    cim:ConnectivityNode.ConnectivityNodeContainer:
+      '@id': urn:uuid:69e74dbd-b68a-4e2b-8cf7-da98891de6a1
+    eu:ConnectivityNode.BoundaryPoint:
+      '@id': urn:uuid:d39090b1-58aa-446b-9551-4c6188aa7d0f
+    cim:IdentifiedObject.mRID: f0c14f64-3aa3-44ae-b858-18d6a75dc72a
+  - '@id': urn:uuid:d39090b1-58aa-446b-9551-4c6188aa7d0f
+    '@type': eu:BoundaryPoint
+    nl:IdentifiedObject.europeanArticleNumberEAN: '8000123456789012'
+    eu:BoundaryPoint.fromEndIsoCode: 'NL'
+    eu:BoundaryPoint.fromEndNameTso: 'TenneT'
+    eu:BoundaryPoint.toEndIsoCode: 'NL'
+    eu:BoundaryPoint.toEndNameTso: 'Liander'
+    cim:IdentifiedObject.mRID: d39090b1-58aa-446b-9551-4c6188aa7d0f

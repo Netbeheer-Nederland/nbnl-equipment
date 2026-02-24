@@ -1,0 +1,78 @@
+'@context':
+  linkml: https://w3id.org/linkml/
+  cim: https://cim.ucaiug.io/ns#
+  eu: https://cim.ucaiug.io/ns/eu#
+  nl: https://cim.ucaiug.io/ns/nl#
+  nbnl: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  xsd: http://www.w3.org/2001/XMLSchema#
+'@id': urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f
+'dcterms:title': 'HV example data'
+'dcterms:issued':
+  '@value': 2025-12-05T12:34:567Z
+  '@type': xsd:date
+'dcterms:publisher':
+  '@id': urn:uuid:2128cb2f-9425-4cf7-9462-9fd59e06542d
+  'dcterms:title': 'TenneT'
+'dcterms:references':
+  - '@id': urn:uuid:5bdf9a6d-ef38-4c4d-a6ee-42a9accdec64
+'@graph':
+  - '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    '@type': cim:Substation
+    cim:Substation.Region:
+      '@id': urn:uuid:2128cb2f-9425-4cf7-9462-9fd59e06542d
+    cim:IdentifiedObject.mRID: 755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:IdentifiedObject.name: 'Station Arnhem 150'
+  - '@id': urn:uuid:69e74dbd-b68a-4e2b-8cf7-da98891de6a1
+    '@type': cim:VoltageLevel
+    cim:VoltageLevel.BaseVoltage:
+      '@id': urn:uuid:e50ca4bd591d4c30bd6eca3635f70516
+    cim:VoltageLevel.Substation:
+      '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:IdentifiedObject.mRID: 69e74dbd-b68a-4e2b-8cf7-da98891de6a1
+  - '@id': urn:uuid:f0c14f64-3aa3-44ae-b858-18d6a75dc72a
+    '@type': cim:ConnectivityNode
+    cim:ConnectivityNode.ConnectivityNodeContainer:
+      '@id': urn:uuid:69e74dbd-b68a-4e2b-8cf7-da98891de6a1
+    eu:ConnectivityNode.BoundaryPoint:
+      '@id': urn:uuid:d39090b1-58aa-446b-9551-4c6188aa7d0f
+    cim:IdentifiedObject.mRID: f0c14f64-3aa3-44ae-b858-18d6a75dc72a
+  - '@id': urn:uuid:d39090b1-58aa-446b-9551-4c6188aa7d0f
+    '@type': eu:BoundaryPoint
+    nl:IdentifiedObject.europeanArticleNumberEAN: '8000123456789012'
+    eu:BoundaryPoint.fromEndIsoCode: 'NL'
+    eu:BoundaryPoint.fromEndNameTso: 'TenneT'
+    eu:BoundaryPoint.toEndIsoCode: 'NL'
+    eu:BoundaryPoint.toEndNameTso: 'Liander'
+    cim:IdentifiedObject.mRID: d39090b1-58aa-446b-9551-4c6188aa7d0f
+
+  # --- NBNL Object Register --------------------------------------------------
+
+  # --- cim:GeographicalRegion ------------------------------------------------
+  - '@id': urn:uuid:3061d9bc-a20e-4b72-85b7-042c731f86be
+    '@type': cim:GeographicalRegion
+    cim:IdentifiedObject.mRID: 3061d9bc-a20e-4b72-85b7-042c731f86be
+    cim:IdentifiedObject.name: 'NL'
+  # --- cim:SubGeographicalRegion ---------------------------------------------
+  - '@id': urn:uuid:2128cb2f-9425-4cf7-9462-9fd59e06542d
+    '@type': cim:SubGeographicalRegion
+    cim:SubGeographicalRegion.Region:
+      '@id': urn:uuid:3061d9bc-a20e-4b72-85b7-042c731f86be
+    cim:IdentifiedObject.mRID: 2128cb2f-9425-4cf7-9462-9fd59e06542d
+    cim:IdentifiedObject.name: 'TenneT'
+  - '@id': urn:uuid:e50ca4bd591d4c30bd6eca3635f70516
+    '@type': cim:BaseVoltage
+    cim:BaseVoltage.nominalVoltage:
+      '@id': urn:uuid:a22b6bf3-33ab-4f82-89c5-0d427625f2da
+    cim:IdentifiedObject.description: 'Base voltage defined by ENTSO-E 150 kV'
+    cim:IdentifiedObject.mRID: e50ca4bd591d4c30bd6eca3635f70516
+    cim:IdentifiedObject.name: 'AC-150'
+  # --- cim:Voltage -----------------------------------------------------------
+  - '@id': urn:uuid:a22b6bf3-33ab-4f82-89c5-0d427625f2da
+    '@type': cim:Voltage
+    cim:Voltage.multiplier:
+      '@id': cim:UnitMultiplier.k
+    cim:Voltage.unit:
+      '@id': cim:UnitSymbol.V
+    cim:Voltage.value:
+      '@value': 150.0
+      '@type': xsd:float
