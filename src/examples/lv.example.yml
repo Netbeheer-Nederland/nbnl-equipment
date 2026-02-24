@@ -10,7 +10,7 @@
   github: https://github.com/
   dcterms: http://purl.org/dc/terms/
 '@id': urn:uuid:2808ccf7-c19c-4b96-aa65-7e21c2425458
-'dcterms:title': 'LV example data'
+'dcterms:title': High Voltage Boundary (LV) JSON-LD instance data
 'dcterms:issued':
   '@value': 2025-12-05T12:34:567Z
   '@type': xsd:date
