@@ -553,7 +553,7 @@ classes:
       Terminal:
         description: The terminal where the operational limit set apply.
         slot_uri: cim:OperationalLimitSet.Terminal
-        range: ACDCTerminal
+        range: Terminal
         required: false
         multivalued: false
     class_uri: cim:OperationalLimitSet
