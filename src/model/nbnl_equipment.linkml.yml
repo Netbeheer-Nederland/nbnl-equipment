@@ -15,7 +15,6 @@ prefixes:
   nbnl-term: https://begrippen.netbeheernederland.nl/id/
   nl: https://cim.ucaiug.io/ns/nl#
   unit: http://qudt.org/vocab/unit/
-default_prefix: http://modellen.netbeheernederland.nl/nbnl-equipment/
 annotations:
   model_uri: https://modellen.netbeheernederland.nl/nbnl-equipment
   exchange_format: application/ld+json
