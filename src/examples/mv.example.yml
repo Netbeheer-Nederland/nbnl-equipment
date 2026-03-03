@@ -46,6 +46,8 @@
     '@type': cim:Terminal
     cim:Terminal.ConnectivityNode:
       '@id': urn:uuid:f0c14f64-3aa3-44ae-b858-18d6a75dc72a
+    cim:Terminal.ConductingEquipment:
+      '@id': urn:uuid:efeba515-547b-4c1a-8cd0-4cbc5f714283
     cim:IdentifiedObject.mRID: 9cc70c8a-f352-4ad5-8743-6295e2800c63
   - '@id': urn:uuid:3c052f67-8180-44a9-8bb6-f13b75e94f02
     '@type': cim:PowerTransformerEnd
@@ -60,6 +62,8 @@
     '@type': cim:Terminal
     cim:Terminal.ConnectivityNode:
       '@id': urn:uuid:13232d25-3dd8-46f1-ad21-a77b0458648e
+    cim:Terminal.ConductingEquipment:
+      '@id': urn:uuid:efeba515-547b-4c1a-8cd0-4cbc5f714283
     cim:IdentifiedObject.mRID: 4d4b29be-1386-45e1-acc3-b86cfab83c94
   - '@id': urn:uuid:3a926964-8420-4c57-8a1d-8ac87193b0c6
     '@type': cim:PowerTransformerEnd

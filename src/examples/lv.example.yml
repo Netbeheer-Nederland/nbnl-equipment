@@ -54,6 +54,8 @@
     '@type': cim:Terminal
     cim:Terminal.ConnectivityNode:
       '@id': urn:uuid:9f13c2d6-9128-4a97-b824-0e4d4cea638f
+    cim:Terminal.ConductingEquipment:
+      '@id': urn:uuid:abae232f-ae19-4e69-a2c7-84c4a86b78f3
     cim:IdentifiedObject.mRID: f0e1f8a2-65b6-4c67-8cc9-bba95247719d#
   - '@id': urn:uuid:8f2b4255-ae8c-41f2-8f0b-02b612339db9
     '@type': cim:PowerTransformerEnd
