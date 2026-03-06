@@ -1,9 +1,10 @@
 '@context':
   linkml: https://w3id.org/linkml/
   cim: https://cim.ucaiug.io/ns#
+  dcterms: http://purl.org/dc/terms/
   eu: https://cim.ucaiug.io/ns/eu#
-  nl: https://cim.ucaiug.io/ns/nl#
   nbnl: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  nl: https://cim.ucaiug.io/ns/nl#
   xsd: http://www.w3.org/2001/XMLSchema#
 '@id': urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f
 'dcterms:title': High Voltage Boundary (HV) JSON-LD instance data
