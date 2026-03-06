@@ -207,6 +207,10 @@ classes:
         range: GeographicalRegion
         required: true
         multivalued: false
+      title:
+        slot_uri: dcterms:title
+        required: false
+        multivalued: false
     class_uri: cim:SubGeographicalRegion
   GeographicalRegion:
     description: "A geographical region of a power system network model.\r\n"
