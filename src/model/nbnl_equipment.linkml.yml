@@ -119,7 +119,7 @@ classes:
     description: 'Defines a system base voltage which is referenced. '
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
     exact_mappings:
-    - nbnl-term:spanningsniveau
+    - nbnl-term:w8e9z
     is_a: IdentifiedObject
     attributes:
       nominalVoltage:
@@ -160,7 +160,7 @@ classes:
       control, regulation and protection devices as well as assemblies of all these.
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
     exact_mappings:
-    - nbnl-term:installatie
+    - nbnl-term:gtj7b
     is_a: EquipmentContainer
     attributes:
       BaseVoltage:
@@ -182,7 +182,7 @@ classes:
       \ of switching or modifying its characteristics. \r\n"
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
     narrow_mappings:
-    - nbnl-term:knooppunt
+    - nbnl-term:n4sk8
     is_a: EquipmentContainer
     attributes:
       Region:
@@ -197,7 +197,7 @@ classes:
       \n"
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
     narrow_mappings:
-    - nbnl-term:energienet
+    - nbnl-term:w9pqm
     is_a: IdentifiedObject
     attributes:
       Region:
@@ -266,7 +266,7 @@ classes:
       are connected together with zero impedance.
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
     narrow_mappings:
-    - nbnl-term:knooppunt
+    - nbnl-term:n4sk8
     is_a: IdentifiedObject
     attributes:
       ConnectivityNodeContainer:
@@ -297,7 +297,7 @@ classes:
       used in a boundary model authority set which can contain one or many BoundaryPoint-s
       among other Equipment-s and their connections.
     exact_mappings:
-    - nbnl-term:overdrachtspunt
+    - nbnl-term:fqqa7
     is_a: PowerSystemResource
     attributes:
       fromEndIsoCode:
