@@ -9,8 +9,8 @@
 '@id': urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f
 'dcterms:title': High Voltage Boundary (HV) JSON-LD instance data
 'dcterms:issued':
-  '@value': 2025-12-05T12:34:567Z
-  '@type': xsd:date
+  '@value': 2025-12-05T12:34:56Z
+  '@type': xsd:dateTime
 'dcterms:publisher':
   '@id': urn:uuid:2128cb2f-9425-4cf7-9462-9fd59e06542d
   'dcterms:title': 'TenneT'

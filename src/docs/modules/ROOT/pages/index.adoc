@@ -12,12 +12,6 @@ vars: {
   }
 }
 
-grid-rows: 5
-grid-columns: 4
-
-horizontal-gap: 160
-vertical-gap: 160
-
 classes: {
   empty: {
     label: ""
@@ -93,42 +87,43 @@ legend: "" {
   }
 }
 
-GeographicalRegion.class: grid
-Voltage.class: grid
-2.class: empty
-3.class: empty
+direction: up
 
-SubGeographicalRegion.class: grid
+ActivePower.class: grid
+ActivePowerLimit.class: grid
 BaseVoltage.class: grid
-4.class: empty
-5.class: empty
-
-Substation.class: grid
-VoltageLevel.class: grid
-ConnectivityNode.class: grid
 BoundaryPoint.class: grid
-
+ConnectivityNode.class: grid
+Contingency.class: grid
+ContingencyEquipment.class: grid
+ContingencyInfo.class: grid
+GeographicalRegion.class: grid
+OperationalLimitSet.class: grid
 PowerTransformer.class: grid
 PowerTransformerEnd.class: grid
+SubGeographicalRegion.class: grid
+Substation.class: grid
 Terminal.class: grid
-EnergyConsumer.class: grid
+VoltageLevel.class: grid
 
-OperationalLimitSet.class: grid
-ActivePowerLimit.class: grid
-
-BaseVoltage -> Voltage: "nominalVoltage"
-ConnectivityNode -> BoundaryPoint: "BoundaryPoint"
-ConnectivityNode -> VoltageLevel: "ConnectivityNode\nContainer"
-PowerTransformer -> Substation: "EquipmentContainer"
-PowerTransformerEnd -> PowerTransformer: "PowerTransformer"
-PowerTransformerEnd -> Terminal: "Terminal"
-SubGeographicalRegion -> GeographicalRegion: "Region"
-Substation -> SubGeographicalRegion: "Region"
-Terminal -> ConnectivityNode: "ConnectivityNode"
-VoltageLevel -> BaseVoltage: "BaseVoltage"
-VoltageLevel -> Substation: "Substation"
-OperationalLimitSet -> PowerTransformer: "Equipment"
-ActivePowerLimit -> OperationalLimitSet: "OperationalLimitSet"
+VoltageLevel -> BaseVoltage
+VoltageLevel -> Substation
+Substation -> SubGeographicalRegion
+SubGeographicalRegion -> GeographicalRegion
+ConnectivityNode -> VoltageLevel
+ConnectivityNode -> BoundaryPoint
+PowerTransformerEnd -> PowerTransformer
+PowerTransformerEnd -> Terminal
+Terminal -> ConnectivityNode
+ActivePowerLimit -> ActivePower
+ActivePowerLimit -> OperationalLimitSet
+OperationalLimitSet -> PowerTransformer
+OperationalLimitSet -> Terminal
+Contingency -> ActivePower
+Contingency -> ActivePower
+ContingencyEquipment -> PowerTransformer
+ContingencyEquipment -> Contingency
+ContingencyInfo -> Contingency
 ----
 
 This data product requires the use of
