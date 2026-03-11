@@ -587,6 +587,14 @@ classes:
         range: OperationalLimitSet
         required: true
         multivalued: false
+      positiveFlowIn:
+        description: If true then this OperationalLimit follows the convention
+          that a positive value measured at the Terminal means power is flowing
+          into the related PowerSystemResource.
+        slot_uri: nl:OperationalLimit.positiveFlowIn
+        range: boolean
+        required: false
+        multivalued: false
     class_uri: cim:OperationalLimit
   OperationalLimitSet:
     description: "A set of limits associated with equipment.  Sets of limits might\
