@@ -691,8 +691,6 @@ classes:
         - vocab:wachtrij
       demandCapacityInQueue:
         description: The contract value of demand requests not yet granted.
-          This is the "Wachtrij in capaciteit - afname" in the previous
-          implementation, or "Nodig voor aanvragen in de huidige wachtrij".
         slot_uri: vocab:Contingency.demandCapacityInQueue
         range: ActivePower
         required: false
