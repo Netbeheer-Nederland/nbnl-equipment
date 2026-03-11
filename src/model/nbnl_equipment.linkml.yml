@@ -158,7 +158,7 @@ classes:
     description: 'Defines a system base voltage which is referenced. '
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
     exact_mappings:
-    - nbnl-term:w8e9z
+    - vocab:spanningsniveau
     is_a: IdentifiedObject
     attributes:
       nominalVoltage:
@@ -230,6 +230,8 @@ classes:
         range: SubGeographicalRegion
         required: true
         multivalued: false
+    exact_mappings:
+    - vocab:station
     class_uri: cim:Substation
   SubGeographicalRegion:
     description: "A subset of a geographical region of a power system network model.\r\
@@ -406,6 +408,8 @@ classes:
       \ be used instead."
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
     is_a: ConductingEquipment
+    exact_mappings:
+    - vocab:transformator
     class_uri: cim:PowerTransformer
   PowerTransformerEnd:
     description: "A PowerTransformerEnd is associated with each Terminal of a PowerTransformer.\r\
@@ -501,6 +505,8 @@ classes:
       system model.
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
     is_a: EnergyConnection
+    exact_mappings:
+    - vocab:aangeslotene
     class_uri: cim:EnergyConsumer
   EnergyConnection:
     description: A connection of energy generation or consumption on the power
@@ -544,6 +550,7 @@ classes:
         multivalued: false
     exact_mappings:
     - nbnl-term:2whwi
+    - vocab:stationslimiet
     class_uri: cim:ActivePowerLimit
   ActivePower:
     annotations:
@@ -680,6 +687,8 @@ classes:
         multivalued: false
         exact_mappings:
         - ck:EnergyArea.demand_requests_in_queue
+        narrow_mappings:
+        - vocab:wachtrij
       demandCapacityInQueue:
         description: The contract value of demand requests not yet granted.
           This is the "Wachtrij in capaciteit - afname" in the previous
@@ -690,6 +699,8 @@ classes:
         multivalued: false
         exact_mappings:
         - ck:EnergyArea.demand_capacity_in_queue
+        narrow_mappings:
+        - vocab:wachtrij
       generationRequestsInQueue:
         description: Number of generation requests for new grid connections and capacity
           increases in queue.
@@ -699,6 +710,8 @@ classes:
         multivalued: false
         exact_mappings:
         - ck:EnergyArea.generation_requests_in_queue
+        narrow_mappings:
+        - vocab:wachtrij
       generationCapacityInQueue:
         description: The contract value of generation requests not yet granted.
         slot_uri: vocab:Contingency.generationCapacityInQueue
@@ -707,6 +720,10 @@ classes:
         multivalued: false
         exact_mappings:
         - ck:EnergyArea.generation_capacity_in_queue
+        narrow_mappings:
+        - vocab:wachtrij
+    exact_mappings:
+    - vocab:knelpunt
     class_uri: cim:Contingency
   ContingencyElement:
     description: 'An element of a system event to be studied by contingency analysis,
