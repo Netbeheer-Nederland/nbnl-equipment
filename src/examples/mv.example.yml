@@ -12,8 +12,8 @@
 '@id': urn:uuid:2d3088c1-2b9a-4cbc-84fa-c0670e0e8ecc
 'dcterms:title': Medium Voltage (MV) JSON-LD instance data
 'dcterms:issued':
-  '@value': 2025-12-05T12:34:567Z
-  '@type': xsd:date
+  '@value': 2025-12-05T12:34:56Z
+  '@type': xsd:dateTime
 'dcterms:publisher':
   '@id': urn:uuid:4f74c8e2-adb5-4815-9607-eb00fb6a0d55
   'dcterms:title': 'Liander'
