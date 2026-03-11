@@ -9,12 +9,14 @@ imports:
 prefixes:
   cbs: https://www.cbs.nl/nl-nl/onze-diensten/methoden/begrippen/
   cim: https://cim.ucaiug.io/ns#
+  ck: http://data.netbeheernederland.nl/capaciteitskaart/def#
   dcterms: http://purl.org/dc/terms/
   eu: https://cim.ucaiug.io/ns/eu#
   linkml: https://w3id.org/linkml/
   nbnl-term: https://begrippen.netbeheernederland.nl/id/
   nl: https://cim.ucaiug.io/ns/nl#
   unit: http://qudt.org/vocab/unit/
+  vocab: http://modellen.netbeheernederland.nl/nbnl-equipment/
 annotations:
   model_uri: https://modellen.netbeheernederland.nl/nbnl-equipment
   exchange_format: application/ld+json
@@ -114,6 +116,43 @@ enums:
         meaning: cim:UnitSymbol.Wb
       Wh:
         meaning: cim:UnitSymbol.Wh
+  UpdateInfoKind:
+    description: Type of information that has been updated as part of this
+      dataset.
+    enum_uri: vocab:UpdateInfoKind
+    permissible_values:
+      KI:
+        description: Kleurinformatie.
+        meaning: vocab:UpdateInfoKind.KI
+      ATC:
+        description: Aanwezige transportcapaciteit.
+        meaning: vocab:UpdateInfoKind.ATC
+      BTC:
+        description: Benodigde transportcapaciteit.
+        meaning: vocab:UpdateInfoKind.BTC
+      WR:
+        description: Wachtrij.
+        meaning: vocab:UpdateInfoKind.WR
+  RAGKind:
+    description: Traffic light colors coding scheme for categorising status.
+    enum_uri: vocab:RAGKind
+    permissible_values:
+      transparant:
+        description: Transport capacity is available, without queue ("Transportcapaciteit
+          beschikbaar zonder wachtrij").
+        meaning: vocab:RAGKind.Transparant
+      red:
+        description: Shortage of transport capacity, with queue (Tekort aan Transportcapaciteit
+          met wachtrij).
+        meaning: vocab:RAGKind.Red
+      amber:
+        description: Energy Area is being investigated, with queue (Voedingsgebied
+          is in onderzoek met wachtrij).
+        meaning: vocab:RAGKind.Amber
+      yellow:
+        description: Limited availability of transport capacity, without queue (Transportcapaciteit
+          beperkt beschikbaar zonder wachtrij).
+        meaning: vocab:RAGKind.Yellow
 classes:
   BaseVoltage:
     description: 'Defines a system base voltage which is referenced. '
@@ -260,6 +299,8 @@ classes:
         range: string
         required: false
         multivalued: false
+        exact_mappings:
+        - ck:EnergyArea.short_code
     class_uri: cim:IdentifiedObject
   ConnectivityNode:
     description: Connectivity nodes are points where terminals of AC conducting equipment
@@ -570,3 +611,139 @@ classes:
         required: false
         multivalued: false
     class_uri: cim:OperationalLimitSet
+  Contingency:
+    description: An event threatening system reliability, consisting of one or more
+      contingency elements.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Contingency
+    is_a: IdentifiedObject
+    attributes:
+      mustStudy:
+        description: Set true if must study this contingency.
+        slot_uri: cim:Contingency.mustStudy
+        range: boolean
+        required: false
+        multivalued: false
+      DemandConstraint:
+        description: A RAG definition of the demand constraints at the EnergyArea.
+          A utility should provide details on how this RAG status is calculated as
+          part of the accompanying documentation.
+        slot_uri: vocab:Contingency.DemandConstraint
+        range: RAGKind
+        required: false
+        multivalued: false
+        exact_mappings:
+        - ck:PostcodeArea.demand_constraint
+      GenerationConstraint:
+        description: A RAG definition of the generation constraints at the
+          Contingency. A utility should provide details on how this RAG status
+          is calculated as part of the accompanying documentation.
+        slot_uri: vocab:Contingency.GenerationConstraint
+        range: RAGKind
+        required: false
+        multivalued: false
+        exact_mappings:
+        - ck:PostcodeArea.generation_constraint
+      demandAlleviationYear:
+        description: Year (e.g. "2028") from which any capacity issues have
+          been alleviated for the Contingency.
+        slot_uri: vocab:Contingency.demandAlleviationYear
+        range: integer
+        required: false
+        multivalued: false
+        exact_mappings:
+        - ck:EnergyArea.demand_alleviation_year
+      generationAlleviationYear:
+        description: Year (e.g. "2028") from which any capacity issues have
+          been alleviated for the Contingency.
+        slot_uri: vocab:Contingency.generationAlleviationYear
+        range: integer
+        required: false
+        multivalued: false
+        exact_mappings:
+        - ck:EnergyArea.generation_alleviation_year
+      demandRequestsInQueue:
+        description: Number of demand requests for new grid connections and
+          capacity increases in queue.
+        slot_uri: vocab:Contingency.demandRequestsInQueue
+        range: integer
+        required: false
+        multivalued: false
+        exact_mappings:
+        - ck:EnergyArea.demand_requests_in_queue
+      demandCapacityInQueue:
+        description: The contract value of demand requests not yet granted.
+          This is the "Wachtrij in capaciteit - afname" in the previous
+          implementation, or "Nodig voor aanvragen in de huidige wachtrij".
+        slot_uri: vocab:Contingency.demandCapacityInQueue
+        range: ActivePower
+        required: false
+        multivalued: false
+        exact_mappings:
+        - ck:EnergyArea.demand_capacity_in_queue
+      generationRequestsInQueue:
+        description: Number of generation requests for new grid connections and capacity
+          increases in queue.
+        slot_uri: vocab:Contingency.generationRequestsInQueue
+        range: integer
+        required: false
+        multivalued: false
+        exact_mappings:
+        - ck:EnergyArea.generation_requests_in_queue
+      generationCapacityInQueue:
+        description: The contract value of generation requests not yet granted.
+        slot_uri: vocab:Contingency.generationCapacityInQueue
+        range: ActivePower
+        required: false
+        multivalued: false
+        exact_mappings:
+        - ck:EnergyArea.generation_capacity_in_queue
+    class_uri: cim:Contingency
+  ContingencyElement:
+    description: 'An element of a system event to be studied by contingency analysis,
+      representing a change in status of a single piece of equipment. '
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Contingency
+    is_a: IdentifiedObject
+    attributes:
+      Contingency:
+        description: A contingency element belongs to one contingency.
+        slot_uri: cim:ContingencyElement.Contingency
+        range: Contingency
+        required: true
+        multivalued: false
+    abstract: true
+    class_uri: cim:ContingencyElement
+  ContingencyEquipment:
+    description: Equipment whose in service status is to change, such as a power transformer
+      or AC line segment.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Contingency
+    is_a: ContingencyElement
+    attributes:
+      Equipment:
+        description: The single piece of equipment to which to apply the contingency.
+        slot_uri: cim:ContingencyEquipment.Equipment
+        range: PowerTransformer
+        required: true
+        multivalued: false
+    class_uri: cim:ContingencyEquipment
+  ContingencyInfo:
+    description: Additional information about the contingency. Allows
+      free-format text and a link to additional information, such as a
+      congestion report.
+    is_a: IdentifiedObject
+    attributes:
+      CongestionURL:
+        description: URL for additional (congestion) information for this
+          contingency.
+        slot_uri: vocab:ContingencyInfo.congestionURL
+        range: string
+        required: false
+        multivalued: false
+      Contingency:
+        description: A contingency info belongs to one contingency.
+        slot_uri: vocab:ContingencyInfo.Contingency
+        range: Contingency
+        required: true
+        multivalued: false
+    exact_mappings:
+    - ck:CongestionInfo
+    class_uri: vocab:ContingencyInfo
