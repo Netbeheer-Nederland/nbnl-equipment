@@ -542,6 +542,8 @@ classes:
         range: ActivePower
         required: true
         multivalued: false
+    exact_mappings:
+    - nbnl-term:2whwi
     class_uri: cim:ActivePowerLimit
   ActivePower:
     annotations:
