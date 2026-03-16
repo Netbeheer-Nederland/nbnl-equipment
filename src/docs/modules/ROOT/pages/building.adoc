@@ -5,12 +5,11 @@ are modelled, i.e. the connectivity of the grid (node/breaker). This document
 explains the structure of the datasets and how instances interact across
 datasets.
 
-CAUTION: Generate your own mRIDs using _UUID4_
+CAUTION: Generate your own mRIDs using _UUID4_.
 
 All JSON-LD examples below are just that; do **not** reuse mRIDs unless
-retrieved from the
-https://netbeheer-nederland.github.io/docs-dev/im-object/latest/object_register.html[NBNL
-Object Register].
+retrieved from the https://modellen.netbeheernederland.nl/object-register[NBNL
+Object Register] for instantiation of its datasets.
 
 == Overview
 

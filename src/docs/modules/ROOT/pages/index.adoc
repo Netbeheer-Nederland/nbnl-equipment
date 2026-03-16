@@ -127,7 +127,7 @@ ContingencyInfo -> Contingency
 ----
 
 This data product requires the use of
-https://netbeheer-nederland.github.io/docs-dev/im-object/latest/object_register.html[NBNL
+https://modellen.netbeheernederland.nl/object-register[NBNL
 Object Register] for instantiation of its datasets.
 
 == Required background
