@@ -449,6 +449,7 @@ classes:
       or that are conductively connected through terminals.
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
     is_a: Equipment
+    abstract: true
     class_uri: cim:ConductingEquipment
   Terminal:
     description: An AC electrical connection point to a piece of conducting equipment.
@@ -499,6 +500,7 @@ classes:
         range: Terminal
         required: true
         multivalued: false
+    abstract: true
     class_uri: cim:TransformerEnd
   EnergyConsumer:
     description: Generic user of energy - a  point of consumption on the power
@@ -513,6 +515,7 @@ classes:
       system model.
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
     is_a: ConductingEquipment
+    abstract: true
     class_uri: cim:EnergyConnection
   Equipment:
     description: The parts of a power system that are physical devices, electronic
@@ -528,6 +531,7 @@ classes:
           - range: Substation
         required: false
         multivalued: false
+    abstract: true
     class_uri: cim:Equipment
   ACDCTerminal:
     description: An electrical connection point (AC or DC) to a piece of conducting
@@ -535,6 +539,7 @@ classes:
       nodes.
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
     is_a: IdentifiedObject
+    abstract: true
     class_uri: cim:ACDCTerminal
   ActivePowerLimit:
     description: Limit on active power flow.
@@ -604,6 +609,7 @@ classes:
         range: boolean
         required: false
         multivalued: false
+    abstract: true
     class_uri: cim:OperationalLimit
   OperationalLimitSet:
     description: "A set of limits associated with equipment.  Sets of limits might\
