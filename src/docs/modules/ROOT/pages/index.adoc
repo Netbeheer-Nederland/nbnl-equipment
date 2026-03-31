@@ -96,11 +96,13 @@ BoundaryPoint.class: grid
 ConnectivityNode.class: grid
 Contingency.class: grid
 ContingencyEquipment.class: grid
-ContingencyInfo.class: grid
+EnergyConsumer.class: grid
 GeographicalRegion.class: grid
 OperationalLimitSet.class: grid
 PowerTransformer.class: grid
 PowerTransformerEnd.class: grid
+ReportingGroup.class: grid
+ReportingSuperGroup.class: grid
 SubGeographicalRegion.class: grid
 Substation.class: grid
 Terminal.class: grid
@@ -108,22 +110,25 @@ VoltageLevel.class: grid
 
 VoltageLevel -> BaseVoltage
 VoltageLevel -> Substation
+VoltageLevel -> ReportingGroup
 Substation -> SubGeographicalRegion
+Substation -> ReportingGroup
 SubGeographicalRegion -> GeographicalRegion
 ConnectivityNode -> VoltageLevel
 ConnectivityNode -> BoundaryPoint
+BoundaryPoint -> ReportingGroup
+PowerTransformer -> ReportingGroup
 PowerTransformerEnd -> PowerTransformer
 PowerTransformerEnd -> Terminal
 Terminal -> ConnectivityNode
+EnergyConsumer -> ReportingGroup
 ActivePowerLimit -> ActivePower
 ActivePowerLimit -> OperationalLimitSet
 OperationalLimitSet -> PowerTransformer
 OperationalLimitSet -> Terminal
-Contingency -> ActivePower
-Contingency -> ActivePower
 ContingencyEquipment -> PowerTransformer
 ContingencyEquipment -> Contingency
-ContingencyInfo -> Contingency
+ReportingGroup -> ReportingSuperGroup
 ----
 
 This data product requires the use of

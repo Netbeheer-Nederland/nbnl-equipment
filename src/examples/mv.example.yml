@@ -10,7 +10,7 @@
   github: https://github.com/
   dcterms: http://purl.org/dc/terms/
 '@id': urn:uuid:2d3088c1-2b9a-4cbc-84fa-c0670e0e8ecc
-'dcterms:title': Medium Voltage (MV) JSON-LD instance data
+'dcterms:title': 'Medium Voltage (MV) JSON-LD instance data'
 'dcterms:issued':
   '@value': 2025-12-05T12:34:56Z
   '@type': xsd:dateTime
@@ -57,6 +57,7 @@
     cim:TransformerEnd.Terminal:
       '@id': urn:uuid:9cc70c8a-f352-4ad5-8743-6295e2800c63
     cim:IdentifiedObject.mRID: 3c052f67-8180-44a9-8bb6-f13b75e94f02
+    cim:IdentifiedObject.description: 'Primary End'
 
   - '@id': urn:uuid:4d4b29be-1386-45e1-acc3-b86cfab83c94
     '@type': cim:Terminal
@@ -73,6 +74,7 @@
     cim:TransformerEnd.Terminal:
       '@id': urn:uuid:4d4b29be-1386-45e1-acc3-b86cfab83c94
     cim:IdentifiedObject.mRID: 3a926964-8420-4c57-8a1d-8ac87193b0c6
+    cim:IdentifiedObject.description: 'Secondary End'
 
   # --- NBNL Object Register --------------------------------------------------
 

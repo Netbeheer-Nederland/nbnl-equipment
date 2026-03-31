@@ -161,7 +161,7 @@ the cim:ConnectivityNode to a cim:BoundaryPoint (3).
 
 Repeat all steps above to create instances for all functions in the grid and
 associated where required. For a full example, see
-xref:schema:attachment$examples/jsonld/hv.example.jsonld[Example
+xref:schema:attachment$examples/jsonld/hv-boundary.example.jsonld[Example
 High Voltage (HV) JSON-LD instance data]. Note that the MV example data
 includes a copy of the boundary dataset for validation purposes. Do **not**
 include the boundary dataset for datasets created by a System Operator.
