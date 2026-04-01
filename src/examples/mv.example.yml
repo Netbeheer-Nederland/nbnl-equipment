@@ -86,15 +86,13 @@
       '@id': urn:uuid:efeba515-547b-4c1a-8cd0-4cbc5f714283
     cim:ContingencyElement.Contingency:
       '@id': urn:uuid:8cfaf1f1-face-4df7-9808-7fcad124a0c9
-    nl:ContingencyElement.positiveFlowIn: true
     cim:IdentifiedObject.description: 'Contingency/PowerTransformer'
     cim:IdentifiedObject.mRID: 409bd06c-ace0-4184-9997-20a593c2d67e
   - '@id': urn:uuid:8cfaf1f1-face-4df7-9808-7fcad124a0c9
     '@type': cim:Contingency
-    nl:Contingency.DemandConstraint:
+    nl:Contingency.constraint:
       '@id': nl:RAGKind.Red
-    nl:Contingency.GenerationConstraint:
-      '@id': nl:RAGKind.Amber
+    nl:Contingency.positiveFlowIn: false
     cim:IdentifiedObject.description: 'Contingency on demand/PowerTransformer'
     cim:IdentifiedObject.mRID: 8cfaf1f1-face-4df7-9808-7fcad124a0c9
   # --- cim:ReportingGroup ----------------------------------------------------

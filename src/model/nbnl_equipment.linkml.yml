@@ -653,26 +653,28 @@ classes:
         range: boolean
         required: false
         multivalued: false
-      DemandConstraint:
-        description: A RAG definition of the demand constraints at the EnergyArea.
-          A utility should provide details on how this RAG status is calculated as
-          part of the accompanying documentation.
-        slot_uri: nl:Contingency.DemandConstraint
-        range: RAGKind
-        required: false
-        multivalued: false
-        exact_mappings:
-        - ck:PostcodeArea.demand_constraint
-      GenerationConstraint:
-        description: A RAG definition of the generation constraints at the
-          Contingency. A utility should provide details on how this RAG status
+      constraint:
+        description:
+          A RAG definition of the constraints at the Contingency. Use in
+          combination with positiveFlowIn to indicate a demand or generation
+          constraint. A utility should provide details on how this RAG status
           is calculated as part of the accompanying documentation.
-        slot_uri: nl:Contingency.GenerationConstraint
+        slot_uri: nl:Contingency.constraint
         range: RAGKind
         required: false
         multivalued: false
         exact_mappings:
         - ck:PostcodeArea.generation_constraint
+        - ck:PostcodeArea.demand_constraint
+      positiveFlowIn:
+        description:
+          If true then this Contingency applies to active power, reactive power
+          or current with the convention that a positive value measured means
+          power is flowing into the related PowerSystemResource.
+        slot_uri: nl:Contingency.positiveFlowIn
+        range: boolean
+        required: false
+        multivalued: false
       #demandAlleviationYear:
       #  description: Year (e.g. "2028") from which any capacity issues have
       #    been alleviated for the Contingency.
@@ -705,15 +707,6 @@ classes:
         slot_uri: cim:ContingencyElement.Contingency
         range: Contingency
         required: true
-        multivalued: false
-      positiveFlowIn:
-        description:
-          If true then this Contingency applies to active power, reactive power
-          or current with the convention that a positive value measured means
-          power is flowing into the related PowerSystemResource.
-        slot_uri: nl:ContingencyElement.positiveFlowIn
-        range: boolean
-        required: false
         multivalued: false
     abstract: true
     class_uri: cim:ContingencyElement
