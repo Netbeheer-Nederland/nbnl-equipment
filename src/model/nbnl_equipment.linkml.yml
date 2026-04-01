@@ -119,40 +119,40 @@ enums:
   UpdateInfoKind:
     description: Type of information that has been updated as part of this
       dataset.
-    enum_uri: vocab:UpdateInfoKind
+    enum_uri: nl:UpdateInfoKind
     permissible_values:
       KI:
         description: Kleurinformatie.
-        meaning: vocab:UpdateInfoKind.KI
+        meaning: nl:UpdateInfoKind.KI
       ATC:
         description: Aanwezige transportcapaciteit.
-        meaning: vocab:UpdateInfoKind.ATC
+        meaning: nl:UpdateInfoKind.ATC
       BTC:
         description: Benodigde transportcapaciteit.
-        meaning: vocab:UpdateInfoKind.BTC
+        meaning: nl:UpdateInfoKind.BTC
       WR:
         description: Wachtrij.
-        meaning: vocab:UpdateInfoKind.WR
+        meaning: nl:UpdateInfoKind.WR
   RAGKind:
     description: Traffic light colors coding scheme for categorising status.
-    enum_uri: vocab:RAGKind
+    enum_uri: nl:RAGKind
     permissible_values:
       transparant:
         description: Transport capacity is available, without queue ("Transportcapaciteit
           beschikbaar zonder wachtrij").
-        meaning: vocab:RAGKind.Transparant
+        meaning: nl:RAGKind.transparant
       red:
         description: Shortage of transport capacity, with queue (Tekort aan Transportcapaciteit
           met wachtrij).
-        meaning: vocab:RAGKind.Red
+        meaning: nl:RAGKind.red
       amber:
-        description: Energy Area is being investigated, with queue (Voedingsgebied
+        description: Under investigation, with queue (Voedingsgebied
           is in onderzoek met wachtrij).
-        meaning: vocab:RAGKind.Amber
+        meaning: nl:RAGKind.amber
       yellow:
         description: Limited availability of transport capacity, without queue (Transportcapaciteit
           beperkt beschikbaar zonder wachtrij).
-        meaning: vocab:RAGKind.Yellow
+        meaning: nl:RAGKind.yellow
 classes:
   BaseVoltage:
     description: 'Defines a system base voltage which is referenced. '
@@ -387,6 +387,13 @@ classes:
       Power system resources can have measurements associated.
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
     is_a: IdentifiedObject
+    attributes:
+      ReportingGroup:
+        slot_uri: cim:PowerSystemResource.ReportingGroup
+        range: ReportingGroup
+        required: false
+        multivalued: true
+        description: Reporting groups to which this power system resource belongs.
     abstract: true
     class_uri: cim:PowerSystemResource
   EquipmentContainer:
@@ -443,6 +450,8 @@ classes:
         range: PowerTransformer
         required: true
         multivalued: false
+    exact_mappings:
+    - nbnl-term:8eytm
     class_uri: cim:PowerTransformerEnd
   ConductingEquipment:
     description: The parts of the AC power system that are designed to carry current
@@ -646,86 +655,46 @@ classes:
         range: boolean
         required: false
         multivalued: false
-      DemandConstraint:
-        description: A RAG definition of the demand constraints at the EnergyArea.
-          A utility should provide details on how this RAG status is calculated as
-          part of the accompanying documentation.
-        slot_uri: vocab:Contingency.DemandConstraint
-        range: RAGKind
-        required: false
-        multivalued: false
-        exact_mappings:
-        - ck:PostcodeArea.demand_constraint
-      GenerationConstraint:
-        description: A RAG definition of the generation constraints at the
-          Contingency. A utility should provide details on how this RAG status
+      constraint:
+        description:
+          A RAG definition of the constraints at the Contingency. Use in
+          combination with positiveFlowIn to indicate a demand or generation
+          constraint. A utility should provide details on how this RAG status
           is calculated as part of the accompanying documentation.
-        slot_uri: vocab:Contingency.GenerationConstraint
+        slot_uri: nl:Contingency.constraint
         range: RAGKind
         required: false
         multivalued: false
         exact_mappings:
         - ck:PostcodeArea.generation_constraint
-      demandAlleviationYear:
-        description: Year (e.g. "2028") from which any capacity issues have
-          been alleviated for the Contingency.
-        slot_uri: vocab:Contingency.demandAlleviationYear
-        range: integer
+        - ck:PostcodeArea.demand_constraint
+      positiveFlowIn:
+        description:
+          If true then this Contingency applies to active power, reactive power
+          or current with the convention that a positive value measured means
+          power is flowing into the related PowerSystemResource.
+        slot_uri: nl:Contingency.positiveFlowIn
+        range: boolean
         required: false
         multivalued: false
-        exact_mappings:
-        - ck:EnergyArea.demand_alleviation_year
-      generationAlleviationYear:
-        description: Year (e.g. "2028") from which any capacity issues have
-          been alleviated for the Contingency.
-        slot_uri: vocab:Contingency.generationAlleviationYear
-        range: integer
-        required: false
-        multivalued: false
-        exact_mappings:
-        - ck:EnergyArea.generation_alleviation_year
-      demandRequestsInQueue:
-        description: Number of demand requests for new grid connections and
-          capacity increases in queue.
-        slot_uri: vocab:Contingency.demandRequestsInQueue
-        range: integer
-        required: false
-        multivalued: false
-        exact_mappings:
-        - ck:EnergyArea.demand_requests_in_queue
-        narrow_mappings:
-        - vocab:wachtrij
-      demandCapacityInQueue:
-        description: The contract value of demand requests not yet granted.
-        slot_uri: vocab:Contingency.demandCapacityInQueue
-        range: ActivePower
-        required: false
-        multivalued: false
-        exact_mappings:
-        - ck:EnergyArea.demand_capacity_in_queue
-        narrow_mappings:
-        - vocab:wachtrij
-      generationRequestsInQueue:
-        description: Number of generation requests for new grid connections and capacity
-          increases in queue.
-        slot_uri: vocab:Contingency.generationRequestsInQueue
-        range: integer
-        required: false
-        multivalued: false
-        exact_mappings:
-        - ck:EnergyArea.generation_requests_in_queue
-        narrow_mappings:
-        - vocab:wachtrij
-      generationCapacityInQueue:
-        description: The contract value of generation requests not yet granted.
-        slot_uri: vocab:Contingency.generationCapacityInQueue
-        range: ActivePower
-        required: false
-        multivalued: false
-        exact_mappings:
-        - ck:EnergyArea.generation_capacity_in_queue
-        narrow_mappings:
-        - vocab:wachtrij
+      #demandAlleviationYear:
+      #  description: Year (e.g. "2028") from which any capacity issues have
+      #    been alleviated for the Contingency.
+      #  slot_uri: nl:Contingency.demandAlleviationYear
+      #  range: integer
+      #  required: false
+      #  multivalued: false
+      #  exact_mappings:
+      #  - ck:EnergyArea.demand_alleviation_year
+      #generationAlleviationYear:
+      #  description: Year (e.g. "2028") from which any capacity issues have
+      #    been alleviated for the Contingency.
+      #  slot_uri: nl:Contingency.generationAlleviationYear
+      #  range: integer
+      #  required: false
+      #  multivalued: false
+      #  exact_mappings:
+      #  - ck:EnergyArea.generation_alleviation_year
     exact_mappings:
     - vocab:knelpunt
     class_uri: cim:Contingency
@@ -756,25 +725,24 @@ classes:
         required: true
         multivalued: false
     class_uri: cim:ContingencyEquipment
-  ContingencyInfo:
-    description: Additional information about the contingency. Allows
-      free-format text and a link to additional information, such as a
-      congestion report.
+  ReportingGroup:
+    class_uri: cim:ReportingGroup
     is_a: IdentifiedObject
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
+    description:
+      A reporting group is used for various ad-hoc groupings used for
+      reporting. The ReportingGroup is used to associate (among others) various
+      cim:PowerSystemResource-s with a nl:Queue (OP).
     attributes:
-      CongestionURL:
-        description: URL for additional (congestion) information for this
-          contingency.
-        slot_uri: vocab:ContingencyInfo.congestionURL
-        range: string
+      ReportingSuperGroup:
+        slot_uri: cim:ReportingGroup.ReportingSuperGroup
+        range: ReportingSuperGroup
         required: false
         multivalued: false
-      Contingency:
-        description: A contingency info belongs to one contingency.
-        slot_uri: vocab:ContingencyInfo.Contingency
-        range: Contingency
-        required: true
-        multivalued: false
-    exact_mappings:
-    - ck:CongestionInfo
-    class_uri: vocab:ContingencyInfo
+        description: Reporting super group to which this reporting group belongs.
+  ReportingSuperGroup:
+    class_uri: cim:ReportingSuperGroup
+    is_a: IdentifiedObject
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
+    description: A reporting super group, groups reporting groups for a higher level
+      report.
