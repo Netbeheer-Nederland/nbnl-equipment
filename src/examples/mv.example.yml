@@ -91,8 +91,8 @@
   - '@id': urn:uuid:8cfaf1f1-face-4df7-9808-7fcad124a0c9
     '@type': cim:Contingency
     nl:Contingency.constraint:
-      '@id': nl:RAGKind.Red
-    nl:Contingency.positiveFlowIn: false
+      '@id': nl:RAGKind.red
+    nl:Contingency.positiveFlowIn: true
     cim:IdentifiedObject.description: 'Contingency on demand/PowerTransformer'
     cim:IdentifiedObject.mRID: 8cfaf1f1-face-4df7-9808-7fcad124a0c9
   # --- cim:ReportingGroup ----------------------------------------------------
@@ -100,6 +100,33 @@
     '@type': cim:ReportingGroup
     cim:IdentifiedObject.description: 'Queue at PowerTransformer'
     cim:IdentifiedObject.mRID: fc097c75-f494-4bb5-97bd-d63d7d63b2b5
+  # --- cim:ActivePowerLimit --------------------------------------------------
+  - '@id': urn:uuid:6e388b51-154e-4bc0-ba57-a19b3aac7db8
+    '@type': cim:ActivePowerLimit
+    cim:ActivePowerLimit.value:
+      '@id': urn:uuid:8f0e9c3f-67fd-48ea-b54f-f18be83cb905
+    cim:OperationalLimit.OperationalLimitSet:
+      '@id': urn:uuid:f944f9c7-908b-48b5-872c-adf3faa70977
+    nl:OperationalLimit.positiveFlowIn: true
+    cim:IdentifiedObject.description: 'PowerTransformer'
+    cim:IdentifiedObject.mRID: 6e388b51-154e-4bc0-ba57-a19b3aac7db8
+  - '@id': urn:uuid:8f0e9c3f-67fd-48ea-b54f-f18be83cb905
+    '@type': cim:ActivePower
+    cim:ActivePower.multiplier:
+      '@id': cim:UnitMultiplier.M
+    cim:ActivePower.unit:
+      '@id': cim:UnitSymbol.W
+    cim:ActivePower.value:
+      '@value': 32.0
+      '@type': xsd:float
+  - '@id': urn:uuid:f944f9c7-908b-48b5-872c-adf3faa70977
+    '@type': cim:OperationalLimitSet
+    cim:OperationalLimitSet.Equipment:
+      '@id': urn:uuid:efeba515-547b-4c1a-8cd0-4cbc5f714283
+    cim:OperationalLimitSet.Terminal:
+      '@id': urn:uuid:4d4b29be-1386-45e1-acc3-b86cfab83c94
+    cim:IdentifiedObject.description: 'PowerTransformer'
+    cim:IdentifiedObject.mRID: f944f9c7-908b-48b5-872c-adf3faa70977
 
   # --- NBNL Object Register --------------------------------------------------
 

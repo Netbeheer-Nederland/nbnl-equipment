@@ -140,19 +140,19 @@ enums:
       transparant:
         description: Transport capacity is available, without queue ("Transportcapaciteit
           beschikbaar zonder wachtrij").
-        meaning: nl:RAGKind.Transparant
+        meaning: nl:RAGKind.transparant
       red:
         description: Shortage of transport capacity, with queue (Tekort aan Transportcapaciteit
           met wachtrij).
-        meaning: nl:RAGKind.Red
+        meaning: nl:RAGKind.red
       amber:
-        description: Energy Area is being investigated, with queue (Voedingsgebied
+        description: Under investigation, with queue (Voedingsgebied
           is in onderzoek met wachtrij).
-        meaning: nl:RAGKind.Amber
+        meaning: nl:RAGKind.amber
       yellow:
         description: Limited availability of transport capacity, without queue (Transportcapaciteit
           beperkt beschikbaar zonder wachtrij).
-        meaning: nl:RAGKind.Yellow
+        meaning: nl:RAGKind.yellow
 classes:
   BaseVoltage:
     description: 'Defines a system base voltage which is referenced. '
@@ -450,6 +450,8 @@ classes:
         range: PowerTransformer
         required: true
         multivalued: false
+    exact_mappings:
+    - nbnl-term:8eytm
     class_uri: cim:PowerTransformerEnd
   ConductingEquipment:
     description: The parts of the AC power system that are designed to carry current
