@@ -16,9 +16,7 @@
   '@type': xsd:dateTime
 'dcterms:publisher':
   '@id': urn:uuid:4f74c8e2-adb5-4815-9607-eb00fb6a0d55
-  'dcterms:title': 'Liander'
-'dcterms:conformsTo':
-  - '@id': https://modellen.netbeheernederland.nl/nbnl-equipment/1.0
+  'dcterms:title': 'Liander N.V.'
 'dcterms:references':
   - '@id': urn:uuid:5bdf9a6d-ef38-4c4d-a6ee-42a9accdec64
   - '@id': urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f
