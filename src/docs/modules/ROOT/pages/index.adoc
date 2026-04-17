@@ -106,6 +106,7 @@ ReportingSuperGroup.class: grid
 SubGeographicalRegion.class: grid
 Substation.class: grid
 Terminal.class: grid
+UsagePoint.class: enterprise
 VoltageLevel.class: grid
 
 VoltageLevel -> BaseVoltage
@@ -122,6 +123,7 @@ PowerTransformerEnd -> PowerTransformer
 PowerTransformerEnd -> Terminal
 Terminal -> ConnectivityNode
 EnergyConsumer -> ReportingGroup
+UsagePoint -> EnergyConsumer
 ActivePowerLimit -> ActivePower
 ActivePowerLimit -> OperationalLimitSet
 OperationalLimitSet -> PowerTransformer

@@ -16,9 +16,7 @@
   '@type': xsd:dateTime
 'dcterms:publisher':
   '@id': urn:uuid:4f74c8e2-adb5-4815-9607-eb00fb6a0d55
-  'dcterms:title': 'Liander'
-'dcterms:conformsTo':
-  - '@id': https://modellen.netbeheernederland.nl/nbnl-equipment/1.0
+  'dcterms:title': 'Liander N.V.'
 'dcterms:references':
   - '@id': urn:uuid:5bdf9a6d-ef38-4c4d-a6ee-42a9accdec64
   - '@id': urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f
@@ -99,6 +97,14 @@
     cim:Terminal.ConductingEquipment:
       '@id': urn:uuid:abae232f-ae19-4e69-a2c7-84c4a86b78f3
     cim:IdentifiedObject.mRID: 9cb3631f-86b6-47b7-992c-3109829a818a
+  # --- UsagePoint
+  - '@id': urn:uuid:882d940a-f86d-471d-a00f-a9dad507da60
+    '@type': cim:UsagePoint
+    cim:UsagePoint.isVirtual: true
+    cim:UsagePoint.Equipments:
+      - '@id': urn:uuid:abae232f-ae19-4e69-a2c7-84c4a86b78f3
+    cim:IdentifiedObject.mRID: 882d940a-f86d-471d-a00f-a9dad507da60
+    nl:IdentifiedObject.europeanArticleNumberEAN: '800056789101112131'
 
   # --- NBNL Object Register --------------------------------------------------
 
