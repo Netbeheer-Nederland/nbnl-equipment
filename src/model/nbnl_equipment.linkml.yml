@@ -747,12 +747,11 @@ classes:
     description: A reporting super group, groups reporting groups for a higher level
       report.
   UsagePoint:
-    class_uri: cim:UsagePoint
-    is_a: IdentifiedObject
-    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61968.Metering
     description: Logical or physical point in the network to which readings or events
       may be attributed. Used at the place where a physical or virtual meter may be
       located; however, it is not required that a meter be present.
+    is_a: IdentifiedObject
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61968.Metering
     attributes:
       isVirtual:
         slot_uri: cim:UsagePoint.isVirtual
@@ -772,3 +771,6 @@ classes:
         required: false
         multivalued: true
         description: All equipment connecting this usage point to the electrical grid.
+    exact_mappings:
+    - nbnl-term:fqqa7
+    class_uri: cim:UsagePoint
