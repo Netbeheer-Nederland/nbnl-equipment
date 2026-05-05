@@ -118,6 +118,7 @@ SubGeographicalRegion -> GeographicalRegion
 ConnectivityNode -> VoltageLevel
 ConnectivityNode -> BoundaryPoint
 BoundaryPoint -> ReportingGroup
+PowerTransformer -> Substation
 PowerTransformer -> ReportingGroup
 PowerTransformerEnd -> PowerTransformer
 PowerTransformerEnd -> Terminal
