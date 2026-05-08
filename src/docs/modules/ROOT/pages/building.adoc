@@ -9,8 +9,7 @@ CAUTION: Generate your own mRIDs using _UUID4_
 
 All JSON-LD examples below are just that; do **not** reuse mRIDs unless
 retrieved from the
-https://netbeheer-nederland.github.io/docs-dev/im-object/latest/object_register.html[NBNL
-Object Register].
+https://modellen.netbeheernederland.nl/object-register[NBNL Object Register].
 
 == Overview
 

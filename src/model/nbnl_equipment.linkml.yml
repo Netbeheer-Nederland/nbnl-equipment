@@ -133,6 +133,12 @@ enums:
       WR:
         description: Wachtrij.
         meaning: nl:UpdateInfoKind.WR
+      NU:
+        description: Netuitbreidingen.
+        meaning: nl:UpdateInfoKind.NU
+      CO:
+        description: Congestie opgelost.
+        meaning: nl:UpdateInfoKind.CO
   RAGKind:
     description: Traffic light colors coding scheme for categorising status.
     enum_uri: nl:RAGKind
@@ -677,24 +683,16 @@ classes:
         range: boolean
         required: false
         multivalued: false
-      #demandAlleviationYear:
-      #  description: Year (e.g. "2028") from which any capacity issues have
-      #    been alleviated for the Contingency.
-      #  slot_uri: nl:Contingency.demandAlleviationYear
-      #  range: integer
-      #  required: false
-      #  multivalued: false
-      #  exact_mappings:
-      #  - ck:EnergyArea.demand_alleviation_year
-      #generationAlleviationYear:
-      #  description: Year (e.g. "2028") from which any capacity issues have
-      #    been alleviated for the Contingency.
-      #  slot_uri: nl:Contingency.generationAlleviationYear
-      #  range: integer
-      #  required: false
-      #  multivalued: false
-      #  exact_mappings:
-      #  - ck:EnergyArea.generation_alleviation_year
+      alleviationYear:
+        description: Year (e.g. "2028") from which any capacity issues have
+          been alleviated for the Contingency.
+        slot_uri: nl:Contingency.alleviationYear
+        range: integer
+        required: false
+        multivalued: false
+        exact_mappings:
+        - ck:EnergyArea.demand_alleviation_year
+        - ck:EnergyArea.generation_alleviation_year
     exact_mappings:
     - vocab:knelpunt
     class_uri: cim:Contingency
@@ -774,3 +772,20 @@ classes:
     exact_mappings:
     - nbnl-term:fqqa7
     class_uri: cim:UsagePoint
+  UpdateInfo:
+    description: Specific type of information that was updated for this
+      dataset.
+    attributes:
+      date:
+        description: Date of the update.
+        slot_uri: nl:UpdateInfo.date
+        range: date
+        required: true
+        multivalued: false
+      type:
+        description: Type of the update.
+        slot_uri: nl:UpdateInfo.type
+        range: UpdateInfoKind
+        required: true
+        multivalued: false
+    class_uri: nl:UpdateInfo
