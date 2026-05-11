@@ -110,10 +110,6 @@
     cim:IdentifiedObject.mRID: 409bd06c-ace0-4184-9997-20a593c2d67e
   - '@id': urn:uuid:8cfaf1f1-face-4df7-9808-7fcad124a0c9
     '@type': cim:Contingency
-    nl:Contingency.constraint:
-      '@id': nl:RAGKind.red
-    nl:Contingency.positiveFlowIn: true
-    nl:Contingency.alleviationYear: 2028
     cim:IdentifiedObject.description: 'Contingency on demand/PowerTransformer'
     cim:IdentifiedObject.mRID: 8cfaf1f1-face-4df7-9808-7fcad124a0c9
   # --- cim:ReportingGroup ----------------------------------------------------

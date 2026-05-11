@@ -139,26 +139,6 @@ enums:
       CO:
         description: Congestie opgelost.
         meaning: nl:UpdateInfoKind.CO
-  RAGKind:
-    description: Traffic light colors coding scheme for categorising status.
-    enum_uri: nl:RAGKind
-    permissible_values:
-      transparant:
-        description: Transport capacity is available, without queue ("Transportcapaciteit
-          beschikbaar zonder wachtrij").
-        meaning: nl:RAGKind.transparant
-      red:
-        description: Shortage of transport capacity, with queue (Tekort aan Transportcapaciteit
-          met wachtrij).
-        meaning: nl:RAGKind.red
-      amber:
-        description: Under investigation, with queue (Voedingsgebied
-          is in onderzoek met wachtrij).
-        meaning: nl:RAGKind.amber
-      yellow:
-        description: Limited availability of transport capacity, without queue (Transportcapaciteit
-          beperkt beschikbaar zonder wachtrij).
-        meaning: nl:RAGKind.yellow
 classes:
   BaseVoltage:
     description: 'Defines a system base voltage which is referenced. '
@@ -661,38 +641,6 @@ classes:
         range: boolean
         required: false
         multivalued: false
-      constraint:
-        description:
-          A RAG definition of the constraints at the Contingency. Use in
-          combination with positiveFlowIn to indicate a demand or generation
-          constraint. A utility should provide details on how this RAG status
-          is calculated as part of the accompanying documentation.
-        slot_uri: nl:Contingency.constraint
-        range: RAGKind
-        required: false
-        multivalued: false
-        exact_mappings:
-        - ck:PostcodeArea.generation_constraint
-        - ck:PostcodeArea.demand_constraint
-      positiveFlowIn:
-        description:
-          If true then this Contingency applies to active power, reactive power
-          or current with the convention that a positive value measured means
-          power is flowing into the related PowerSystemResource.
-        slot_uri: nl:Contingency.positiveFlowIn
-        range: boolean
-        required: false
-        multivalued: false
-      alleviationYear:
-        description: Year (e.g. "2028") from which any capacity issues have
-          been alleviated for the Contingency.
-        slot_uri: nl:Contingency.alleviationYear
-        range: integer
-        required: false
-        multivalued: false
-        exact_mappings:
-        - ck:EnergyArea.demand_alleviation_year
-        - ck:EnergyArea.generation_alleviation_year
     exact_mappings:
     - vocab:knelpunt
     class_uri: cim:Contingency
