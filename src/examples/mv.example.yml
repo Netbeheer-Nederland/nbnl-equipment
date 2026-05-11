@@ -20,6 +20,28 @@
 'dcterms:references':
   - '@id': urn:uuid:5bdf9a6d-ef38-4c4d-a6ee-42a9accdec64
   - '@id': urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f
+'nl:updated':
+  - '@id': urn:uuid:7982806e-b730-4c89-add9-f75bdeb859eb
+    '@type': nl:UpdateInfo
+    nl:UpdateInfo.date:
+      '@value': '2026-05-08'
+      '@type': xsd:date
+    nl:UpdateInfo.type:
+      '@id': nl:UpdateInfoKind.KI
+  - '@id': urn:uuid:161961d6-7b2c-44e3-aa18-2ecf36417242
+    '@type': nl:UpdateInfo
+    nl:UpdateInfo.date:
+      '@value': '2026-05-08'
+      '@type': xsd:date
+    nl:UpdateInfo.type:
+      '@id': nl:UpdateInfoKind.NU
+  - '@id': urn:uuid:4f466a23-b410-405b-8b1d-0c717a515b01
+    '@type': nl:UpdateInfo
+    nl:UpdateInfo.date:
+      '@value': '2026-05-08'
+      '@type': xsd:date
+    nl:UpdateInfo.type:
+      '@id': nl:UpdateInfoKind.CO
 '@graph':
   # --- cim:VoltageLevel ------------------------------------------------------
   - '@id': urn:uuid:73092cf3-eed8-4a92-ac86-cf09390c39d4
@@ -91,6 +113,7 @@
     nl:Contingency.constraint:
       '@id': nl:RAGKind.red
     nl:Contingency.positiveFlowIn: true
+    nl:Contingency.alleviationYear: 2028
     cim:IdentifiedObject.description: 'Contingency on demand/PowerTransformer'
     cim:IdentifiedObject.mRID: 8cfaf1f1-face-4df7-9808-7fcad124a0c9
   # --- cim:ReportingGroup ----------------------------------------------------
