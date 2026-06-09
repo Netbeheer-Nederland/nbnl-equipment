@@ -1,0 +1,218 @@
+'@context':
+  linkml: https://w3id.org/linkml/
+  cim: https://cim.ucaiug.io/ns#
+  dcterms: http://purl.org/dc/terms/
+  eu: https://cim.ucaiug.io/ns/eu#
+  nbnl: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  nl: https://cim.ucaiug.io/ns/nl#
+  xsd: http://www.w3.org/2001/XMLSchema#
+'@id': urn:uuid:0b3440a4-b95a-4c7a-b0e0-5300e2c48d46
+'dcterms:title': 'High Voltage (HV) JSON-LD instance data'
+'dcterms:issued':
+  '@value': 2026-06-09T12:34:56Z
+  '@type': xsd:dateTime
+'dcterms:publisher':
+  '@id': urn:uuid:2128cb2f-9425-4cf7-9462-9fd59e06542d
+  'dcterms:title': 'TenneT'
+'dcterms:references':
+  - '@id': urn:uuid:9a99cda7-fccf-41c8-a2b1-56a7a4279b5e
+  - '@id': urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f
+'@graph':
+  # --- cim:VoltageLevel ------------------------------------------------------
+  - '@id': urn:uuid:2546092a-c3d8-4e40-bf83-7f528100a176
+    '@type': cim:VoltageLevel
+    cim:VoltageLevel.BaseVoltage:
+      '@id': urn:uuid:b88e6bde11264fea83355102cd4f182c
+    cim:VoltageLevel.Substation:
+      '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:IdentifiedObject.mRID: 2546092a-c3d8-4e40-bf83-7f528100a176
+  - '@id': urn:uuid:4908bf64-fffe-4cf6-bff7-5af933522f87
+    '@type': cim:ConnectivityNode
+    cim:ConnectivityNode.ConnectivityNodeContainer:
+      '@id': urn:uuid:2546092a-c3d8-4e40-bf83-7f528100a176
+    cim:IdentifiedObject.mRID: 4908bf64-fffe-4cf6-bff7-5af933522f87
+  # --- cim:PowerTransformer (1) ----------------------------------------------
+  - '@id': urn:uuid:0b248741-64f6-4f46-9f57-4266b5e17c04
+    '@type': cim:PowerTransformer
+    cim:Equipment.EquipmentContainer:
+      '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:PowerSystemResource.ReportingGroup:
+      - '@id': urn:uuid:cd6969f2-b203-438b-ba14-70a801a22db4
+    cim:IdentifiedObject.mRID: 0b248741-64f6-4f46-9f57-4266b5e17c04
+    cim:IdentifiedObject.name: 'TR01'
+  # --- cim:PowerTransformer (2) ----------------------------------------------
+  - '@id': urn:uuid:f6cc8589-f285-4a10-90dc-eb81e15f37ca
+    '@type': cim:PowerTransformer
+    cim:Equipment.EquipmentContainer:
+      '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:PowerSystemResource.ReportingGroup:
+      - '@id': urn:uuid:cd6969f2-b203-438b-ba14-70a801a22db4
+    cim:IdentifiedObject.mRID: f6cc8589-f285-4a10-90dc-eb81e15f37ca
+    cim:IdentifiedObject.name: 'TR02'
+  # --- cim:PowerTransformer (3) ----------------------------------------------
+  - '@id': urn:uuid:a92314f2-f735-4d0a-8638-3981158ff5d1
+    '@type': cim:PowerTransformer
+    cim:Equipment.EquipmentContainer:
+      '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:PowerSystemResource.ReportingGroup:
+      - '@id': urn:uuid:cd6969f2-b203-438b-ba14-70a801a22db4
+    cim:IdentifiedObject.mRID: a92314f2-f735-4d0a-8638-3981158ff5d1
+    cim:IdentifiedObject.name: 'TR03'
+  # --- cim:PowerTransformerEnd (1) -------------------------------------------
+  - '@id': urn:uuid:af74a82d-eae2-4df7-a37e-87829017634a
+    '@type': cim:PowerTransformerEnd
+    cim:PowerTransformerEnd.PowerTransformer:
+      '@id': urn:uuid:0b248741-64f6-4f46-9f57-4266b5e17c04
+    cim:TransformerEnd.endNumber: 1
+    cim:TransformerEnd.Terminal:
+      '@id': urn:uuid:7deabafd-7bc9-4643-bb1d-15f07b10cd2b
+    cim:IdentifiedObject.mRID: af74a82d-eae2-4df7-a37e-87829017634a
+  - '@id': urn:uuid:7deabafd-7bc9-4643-bb1d-15f07b10cd2b
+    '@type': cim:Terminal
+    cim:Terminal.ConnectivityNode:
+      '@id': urn:uuid:4908bf64-fffe-4cf6-bff7-5af933522f87
+    cim:Terminal.ConductingEquipment:
+      '@id': urn:uuid:0b248741-64f6-4f46-9f57-4266b5e17c04
+    cim:IdentifiedObject.mRID: 7deabafd-7bc9-4643-bb1d-15f07b10cd2b
+  # --- cim:PowerTransformerEnd (2) -------------------------------------------
+  - '@id': urn:uuid:4bd011f3-fbb6-4890-8efa-bc9c922ef8a9
+    '@type': cim:PowerTransformerEnd
+    cim:PowerTransformerEnd.PowerTransformer:
+      '@id': urn:uuid:0b248741-64f6-4f46-9f57-4266b5e17c04
+    cim:TransformerEnd.endNumber: 2
+    cim:TransformerEnd.Terminal:
+      '@id': urn:uuid:e1b19e73-59c4-4fc5-9943-3a1c79767477
+    cim:IdentifiedObject.mRID: 4bd011f3-fbb6-4890-8efa-bc9c922ef8a9
+  - '@id': urn:uuid:e1b19e73-59c4-4fc5-9943-3a1c79767477
+    '@type': cim:Terminal
+    cim:Terminal.ConnectivityNode:
+      '@id': urn:uuid:f0c14f64-3aa3-44ae-b858-18d6a75dc72a
+    cim:Terminal.ConductingEquipment:
+      '@id': urn:uuid:0b248741-64f6-4f46-9f57-4266b5e17c04
+    cim:IdentifiedObject.mRID: e1b19e73-59c4-4fc5-9943-3a1c79767477
+  # --- cim:ActivePowerLimit
+  - '@id': urn:uuid:f66b49d3-067c-4bca-9afd-a76056328f4a
+    '@type': cim:ActivePowerLimit
+    cim:ActivePowerLimit.value:
+      '@id': urn:uuid:3b3b6d86-fb71-41dc-9daf-9ded1779355e
+    cim:OperationalLimit.OperationalLimitSet:
+      '@id': urn:uuid:86a9f904-7f2e-4ef9-8441-05ef99b134e1
+    nl:OperationalLimit.positiveFlowIn: true
+    cim:IdentifiedObject.mRID: f66b49d3-067c-4bca-9afd-a76056328f4a
+  - '@id': urn:uuid:3b3b6d86-fb71-41dc-9daf-9ded1779355e
+    '@type': cim:ActivePower
+    cim:ActivePower.multiplier:
+      '@id': cim:UnitMultiplier.M
+    cim:ActivePower.unit:
+      '@id': cim:UnitSymbol.W
+    cim:ActivePower.value:
+      '@value': 32.0
+      '@type': xsd:float
+  - '@id': urn:uuid:86a9f904-7f2e-4ef9-8441-05ef99b134e1
+    '@type': cim:OperationalLimitSet
+    cim:OperationalLimitSet.Equipment:
+      '@id': urn:uuid:0b248741-64f6-4f46-9f57-4266b5e17c04
+    cim:OperationalLimitSet.Terminal:
+      '@id': urn:uuid:7deabafd-7bc9-4643-bb1d-15f07b10cd2b
+    cim:IdentifiedObject.mRID: 86a9f904-7f2e-4ef9-8441-05ef99b134e1
+  # --- cim:Contingency -------------------------------------------------------
+  - '@id': urn:uuid:7e6e9708-fe75-4acf-a3cf-e6d9a16f382b
+    '@type': cim:Contingency
+    cim:Contingency.mustStudy: true
+    cim:IdentifiedObject.mRID: 7e6e9708-fe75-4acf-a3cf-e6d9a16f382b
+  - '@id': urn:uuid:7ba6be2e-ad9e-4bc7-86fd-b93797640074
+    '@type': cim:ContingencyEquipment
+    cim:ContingencyEquipment.Equipment:
+      '@id': urn:uuid:0b248741-64f6-4f46-9f57-4266b5e17c04
+    cim:ContingencyElement.Contingency:
+      '@id': urn:uuid:7e6e9708-fe75-4acf-a3cf-e6d9a16f382b
+    cim:IdentifiedObject.mRID: 7ba6be2e-ad9e-4bc7-86fd-b93797640074
+  - '@id': urn:uuid:ab66edf9-0b68-438d-bbeb-8e90e942fc3a
+    '@type': cim:ContingencyEquipment
+    cim:ContingencyEquipment.Equipment:
+      '@id': urn:uuid:f6cc8589-f285-4a10-90dc-eb81e15f37ca
+    cim:ContingencyElement.Contingency:
+      '@id': urn:uuid:7e6e9708-fe75-4acf-a3cf-e6d9a16f382b
+    cim:IdentifiedObject.mRID: ab66edf9-0b68-438d-bbeb-8e90e942fc3a
+  - '@id': urn:uuid:73dec647-2780-4268-ba05-358496af1b9d
+    '@type': cim:ContingencyEquipment
+    cim:ContingencyEquipment.Equipment:
+      '@id': urn:uuid:a92314f2-f735-4d0a-8638-3981158ff5d1
+    cim:ContingencyElement.Contingency:
+      '@id': urn:uuid:7e6e9708-fe75-4acf-a3cf-e6d9a16f382b
+    cim:IdentifiedObject.mRID: 73dec647-2780-4268-ba05-358496af1b9d
+  # --- cim:ReportingGroup
+  - '@id': urn:uuid:cd6969f2-b203-438b-ba14-70a801a22db4
+    '@type': cim:ReportingGroup
+    cim:IdentifiedObject.mRID: cd6969f2-b203-438b-ba14-70a801a22db4
+
+  # --- Boundary Dataset ------------------------------------------------------
+
+  - '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    '@type': cim:Substation
+    cim:Substation.Region:
+      '@id': urn:uuid:2128cb2f-9425-4cf7-9462-9fd59e06542d
+    cim:IdentifiedObject.mRID: 755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:IdentifiedObject.name: 'Station Arnhem 150'
+  - '@id': urn:uuid:69e74dbd-b68a-4e2b-8cf7-da98891de6a1
+    '@type': cim:VoltageLevel
+    cim:VoltageLevel.BaseVoltage:
+      '@id': urn:uuid:e50ca4bd591d4c30bd6eca3635f70516
+    cim:VoltageLevel.Substation:
+      '@id': urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992
+    cim:IdentifiedObject.mRID: 69e74dbd-b68a-4e2b-8cf7-da98891de6a1
+  - '@id': urn:uuid:f0c14f64-3aa3-44ae-b858-18d6a75dc72a
+    '@type': cim:ConnectivityNode
+    cim:ConnectivityNode.ConnectivityNodeContainer:
+      '@id': urn:uuid:69e74dbd-b68a-4e2b-8cf7-da98891de6a1
+    cim:IdentifiedObject.mRID: f0c14f64-3aa3-44ae-b858-18d6a75dc72a
+
+  # --- NBNL Object Register --------------------------------------------------
+
+  # --- cim:GeographicalRegion ------------------------------------------------
+  - '@id': urn:uuid:3061d9bc-a20e-4b72-85b7-042c731f86be
+    '@type': cim:GeographicalRegion
+    cim:IdentifiedObject.mRID: 3061d9bc-a20e-4b72-85b7-042c731f86be
+    cim:IdentifiedObject.name: 'NL'
+  # --- cim:SubGeographicalRegion ---------------------------------------------
+  - '@id': urn:uuid:2128cb2f-9425-4cf7-9462-9fd59e06542d
+    '@type': cim:SubGeographicalRegion
+    cim:SubGeographicalRegion.Region:
+      '@id': urn:uuid:3061d9bc-a20e-4b72-85b7-042c731f86be
+    cim:IdentifiedObject.mRID: 2128cb2f-9425-4cf7-9462-9fd59e06542d
+    cim:IdentifiedObject.name: 'TenneT'
+  # --- cim:BaseVoltage -------------------------------------------------------
+  - '@id': urn:uuid:e50ca4bd591d4c30bd6eca3635f70516
+    '@type': cim:BaseVoltage
+    cim:BaseVoltage.nominalVoltage:
+      '@id': urn:uuid:a22b6bf3-33ab-4f82-89c5-0d427625f2da
+    cim:IdentifiedObject.description: 'Base voltage defined by ENTSO-E 150 kV'
+    cim:IdentifiedObject.mRID: e50ca4bd591d4c30bd6eca3635f70516
+    cim:IdentifiedObject.name: 'AC-150'
+  - '@id': urn:uuid:b88e6bde11264fea83355102cd4f182c
+    '@type': cim:BaseVoltage
+    cim:BaseVoltage.nominalVoltage:
+      '@id': urn:uuid:0b29ff77-8398-4952-ae9c-ba9419a91a95
+    cim:IdentifiedObject.description: 'Base voltage defined by ENTSO-E 380 kV'
+    cim:IdentifiedObject.mRID: b88e6bde11264fea83355102cd4f182c
+    cim:IdentifiedObject.name: 'AC-380'
+  # --- cim:Voltage -----------------------------------------------------------
+  - '@id': urn:uuid:a22b6bf3-33ab-4f82-89c5-0d427625f2da
+    '@type': cim:Voltage
+    cim:Voltage.multiplier:
+      '@id': cim:UnitMultiplier.k
+    cim:Voltage.unit:
+      '@id': cim:UnitSymbol.V
+    cim:Voltage.value:
+      '@value': 150.0
+      '@type': xsd:float
+  # --- cim:Voltage -----------------------------------------------------------
+  - '@id': urn:uuid:0b29ff77-8398-4952-ae9c-ba9419a91a95
+    '@type': cim:Voltage
+    cim:Voltage.multiplier:
+      '@id': cim:UnitMultiplier.k
+    cim:Voltage.unit:
+      '@id': cim:UnitSymbol.V
+    cim:Voltage.value:
+      '@value': 380.0
+      '@type': xsd:float
