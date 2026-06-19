@@ -147,16 +147,12 @@
     cim:IdentifiedObject.description: 'PowerTransformer'
     cim:IdentifiedObject.mRID: f944f9c7-908b-48b5-872c-adf3faa70977
   # --- cim:ActivePowerLimit (n-1) --------------------------------------------
-  - '@id': urn:uuid:7adeccf4-361c-466f-a64b-ca1997e99d14
-    '@type': cim:LimitDependency
-    cim:IdentifiedObject.mRID: 7adeccf4-361c-466f-a64b-ca1997e99d14
-    cim:IdentifiedObject.name: 'Grid security: n-1'
-    cim:LimitDependency.OperationalLimit:
-      '@id': urn:uuid:b7e873f3-8e13-4fe2-bfff-de864b66ca70
   - '@id': urn:uuid:b7e873f3-8e13-4fe2-bfff-de864b66ca70
     '@type': cim:ActivePowerLimit
     cim:ActivePowerLimit.value:
       '@id': urn:uuid:76033040-e427-4225-a770-9bfeaf19fc54
+    cim:OperationalLimit.LimitDependencyModel:
+      '@id': urn:uuid:7adeccf4-361c-466f-a64b-ca1997e99d14
     nl:OperationalLimit.positiveFlowIn: true
     cim:IdentifiedObject.name: 'Grid security: n-1'
     cim:IdentifiedObject.mRID: b7e873f3-8e13-4fe2-bfff-de864b66ca70
@@ -169,6 +165,12 @@
     cim:ActivePower.value:
       '@value': 22.0
       '@type': xsd:float
+  - '@id': urn:uuid:7adeccf4-361c-466f-a64b-ca1997e99d14
+    '@type': cim:LimitDependency
+    cim:IdentifiedObject.mRID: 7adeccf4-361c-466f-a64b-ca1997e99d14
+    cim:IdentifiedObject.name: 'Grid security participant: n-1'
+    cim:LimitDependency.OperationalLimit:
+      '@id': urn:uuid:6e388b51-154e-4bc0-ba57-a19b3aac7db8
   # --- cim:EnergyConsumer ----------------------------------------------------
   - '@id': urn:uuid:e0ee8086-5713-4402-af05-41e38cadb6a5
     '@type': cim:EnergyConsumer
