@@ -439,6 +439,13 @@ classes:
     exact_mappings:
     - nbnl-term:8eytm
     class_uri: cim:PowerTransformerEnd
+  Conductor:
+    description: 'Combination of conducting material with consistent electrical characteristics,
+      building a single electrical system, used to carry current between points in
+      the power system.  '
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: ConductingEquipment
+    class_uri: cim:Conductor
   ConductingEquipment:
     description: The parts of the AC power system that are designed to carry current
       or that are conductively connected through terminals.
@@ -526,8 +533,57 @@ classes:
           - range: Substation
         required: false
         multivalued: false
+      AdditionalEquipmentContainer:
+        slot_uri: cim:Equipment.AdditionalEquipmentContainer
+        any_of:
+          - range: VoltageLevel
+          - range: Line
+        required: false
+        multivalued: true
+        description: Additional equipment container beyond the primary equipment container. The
+          equipment is contained in another equipment container, but also grouped
+          with this equipment container. For aggregated equipment, use the cim:VoltageLevel or
+          cim:Line specifically intended for grouping of aggregated Equipment-s.
+      aggregate:
+        description: "The aggregate flag provides an alternative way of representing\
+          \ an aggregated (equivalent) element. It is applicable in cases when the\
+          \ dedicated classes for equivalent equipment do not have all of the attributes\
+          \ necessary to represent the required level of detail.  In case the flag\
+          \ is set to \u201Ctrue\u201D the single instance of equipment represents\
+          \ multiple pieces of equipment that have been modelled together as an aggregate\
+          \ equivalent obtained by a network reduction procedure. Examples would be\
+          \ power transformers or synchronous machines operating in parallel modelled\
+          \ as a single aggregate power transformer or aggregate synchronous machine.\
+          \  \r\nThe attribute is not used for EquivalentBranch, EquivalentShunt and\
+          \ EquivalentInjection."
+        slot_uri: cim:Equipment.aggregate
+        range: boolean
+        required: false
+        multivalued: false
     abstract: true
     class_uri: cim:Equipment
+  Line:
+    description: 'Contains equipment beyond a substation belonging to a power transmission
+      line. '
+    is_a: EquipmentContainer
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    class_uri: cim:Line
+  ACLineSegment:
+    description: "A wire or combination of wires, with consistent electrical characteristics,\
+      \ building a single electrical system, used to carry alternating current between\
+      \ points in the power system.\r\nFor symmetrical, transposed three phase lines,\
+      \ it is sufficient to use attributes of the line segment, which describe impedances\
+      \ and admittances for the entire length of the segment.  Additionally impedances\
+      \ can be computed by using length and associated per length impedances.\r\n\
+      The BaseVoltage at the two ends of ACLineSegments in a Line shall have the same\
+      \ BaseVoltage.nominalVoltage. However, boundary lines may have slightly different\
+      \ BaseVoltage.nominalVoltages and variation is allowed. Larger voltage difference\
+      \ in general requires use of an equivalent branch."
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: Conductor
+    exact_mappings:
+    - vocab:verbinding
+    class_uri: cim:ACLineSegment
   ACDCTerminal:
     description: An electrical connection point (AC or DC) to a piece of conducting
       equipment. Terminals are connected at physical connection points called connectivity
@@ -577,6 +633,20 @@ classes:
         required: true
         multivalued: false
     class_uri: cim:ActivePower
+  LimitDependency:
+    description: A limit calculation model used to compute an operational limit based
+      on external input such as temperature. These are intended to be shared among
+      operational limits with the same calculation form that apply to a piece of equipment..
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
+    attributes:
+      OperationalLimit:
+        slot_uri: cim:LimitDependency.OperationalLimit
+        range: ActivePowerLimit
+        required: false
+        multivalued: true
+        description: The operational limits to which this limit dependency model applies.
+    is_a: IdentifiedObject
+    class_uri: cim:LimitDependency
   OperationalLimit:
     description: "A value and normal value associated with a specific kind of limit.\
       \ \r\nThe sub class value and normalValue attributes vary inversely to the associated\
@@ -590,11 +660,19 @@ classes:
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.OperationalLimits
     is_a: IdentifiedObject
     attributes:
+      LimitDependencyModel:
+        description: The limit dependency models which are used to calculate this
+          limit. If no limit dependencies are specified then the native limit value
+          is used.
+        slot_uri: cim:OperationalLimit.LimitDependencyModel
+        range: LimitDependency
+        required: false
+        multivalued: true
       OperationalLimitSet:
         description: The limit set to which the limit values belong.
         slot_uri: cim:OperationalLimit.OperationalLimitSet
         range: OperationalLimitSet
-        required: true
+        required: false
         multivalued: false
       positiveFlowIn:
         description: If true then this OperationalLimit follows the convention
@@ -619,7 +697,9 @@ classes:
       Equipment:
         description: The equipment to which the limit set applies.
         slot_uri: cim:OperationalLimitSet.Equipment
-        range: PowerTransformer
+        any_of:
+          - range: PowerTransformer
+          - range: ACLineSegment
         required: false
         multivalued: false
       Terminal:
