@@ -533,17 +533,6 @@ classes:
           - range: Substation
         required: false
         multivalued: false
-      AdditionalEquipmentContainer:
-        slot_uri: cim:Equipment.AdditionalEquipmentContainer
-        any_of:
-          - range: VoltageLevel
-          - range: Line
-        required: false
-        multivalued: true
-        description: Additional equipment container beyond the primary equipment container. The
-          equipment is contained in another equipment container, but also grouped
-          with this equipment container. For aggregated equipment, use the cim:VoltageLevel or
-          cim:Line specifically intended for grouping of aggregated Equipment-s.
       aggregate:
         description: "The aggregate flag provides an alternative way of representing\
           \ an aggregated (equivalent) element. It is applicable in cases when the\
@@ -563,11 +552,18 @@ classes:
     abstract: true
     class_uri: cim:Equipment
   Line:
-    description: 'Contains equipment beyond a substation belonging to a power transmission
-      line. '
+    class_uri: cim:Line
     is_a: EquipmentContainer
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
-    class_uri: cim:Line
+    description: 'Contains equipment beyond a substation belonging to a power transmission
+      line. '
+    attributes:
+      Region:
+        slot_uri: cim:Line.Region
+        range: SubGeographicalRegion
+        required: true
+        multivalued: false
+        description: The sub-geographical region of the line.
   ACLineSegment:
     description: "A wire or combination of wires, with consistent electrical characteristics,\
       \ building a single electrical system, used to carry alternating current between\
@@ -633,20 +629,6 @@ classes:
         required: true
         multivalued: false
     class_uri: cim:ActivePower
-  LimitDependency:
-    description: A limit calculation model used to compute an operational limit based
-      on external input such as temperature. These are intended to be shared among
-      operational limits with the same calculation form that apply to a piece of equipment..
-    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
-    attributes:
-      OperationalLimit:
-        slot_uri: cim:LimitDependency.OperationalLimit
-        range: ActivePowerLimit
-        required: false
-        multivalued: true
-        description: The operational limits to which this limit dependency model applies.
-    is_a: IdentifiedObject
-    class_uri: cim:LimitDependency
   OperationalLimit:
     description: "A value and normal value associated with a specific kind of limit.\
       \ \r\nThe sub class value and normalValue attributes vary inversely to the associated\
@@ -660,14 +642,6 @@ classes:
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.OperationalLimits
     is_a: IdentifiedObject
     attributes:
-      LimitDependencyModel:
-        description: The limit dependency models which are used to calculate this
-          limit. If no limit dependencies are specified then the native limit value
-          is used.
-        slot_uri: cim:OperationalLimit.LimitDependencyModel
-        range: LimitDependency
-        required: false
-        multivalued: true
       OperationalLimitSet:
         description: The limit set to which the limit values belong.
         slot_uri: cim:OperationalLimit.OperationalLimitSet
@@ -682,6 +656,14 @@ classes:
         range: boolean
         required: false
         multivalued: false
+      LimitDependencyModel:
+        description: The limit dependency models which are used to calculate this
+          limit.   If no limit dependencies are specified then the native limit value
+          is used.
+        slot_uri: cim:OperationalLimit.LimitDependencyModel
+        range: LimitDependency
+        required: false
+        multivalued: true
     abstract: true
     class_uri: cim:OperationalLimit
   OperationalLimitSet:
@@ -709,6 +691,78 @@ classes:
         required: false
         multivalued: false
     class_uri: cim:OperationalLimitSet
+  LimitDependency:
+    description: A limit calculation model used to compute an operational limit based
+      on external input such as temperature. These are intended to be shared among
+      operational limits with the same calculation form that apply to a piece of equipment..
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
+    is_a: IdentifiedObject
+    attributes:
+      #Equipment:
+      #  description: The equipment for which this limit dependency model is organized
+      #    under.
+      #  slot_uri: cim:LimitDependency.Equipment
+      #  range: Equipment
+      #  required: false
+      #  multivalued: false
+      OperationalLimit:
+        description: The operational limits to which this limit dependency model applies.
+        slot_uri: cim:LimitDependency.OperationalLimit
+        range: OperationalLimit
+        required: false
+        multivalued: true
+    class_uri: cim:LimitDependency
+  EquipmentLimitSeriesComponent:
+    description: This represents one instance of an equipment that contributes to
+      the calculation of an operational limit.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
+    is_a: IdentifiedObject
+    attributes:
+      SeriesEquipmentDependentLimit:
+        description: Calculation in which the refernce to equipment applies.
+        slot_uri: cim:EquipmentLimitSeriesComponent.SeriesEquipmentDependentLimit
+        range: SeriesEquipmentDependentLimit
+        required: true
+        multivalued: false
+      Equipment:
+        description: Equipment contributing toward the series limit.   The reference
+          here is to Equipment rather than a specific limit on the equipment so the
+          grouiping can be reused for multiple limits of different types on the same
+          instance of equipment.
+        slot_uri: cim:EquipmentLimitSeriesComponent.Equipment
+        range: Equipment
+        required: true
+        multivalued: false
+      Terminal:
+        description: The terminal where the operational limit set apply.
+        slot_uri: nl:EquipmentLimitSeriesComponent.Terminal
+        range: Terminal
+        required: false
+        multivalued: false
+    class_uri: cim:EquipmentLimitSeriesComponent
+  SeriesEquipmentDependentLimit:
+    description: "Limit based on most restrictive equipment limit.\r\nA specification\
+      \ of equipment that determines the calculated operational limit values based\
+      \ upon other equipment and their ratings. The most restrictive limit connected\
+      \ within the group is used. The physical connection based on switch\
+      \ status for example may also impact which elements in the group are considered.\
+      \ Any equipment in the group that are presently connected with the\
+      \ equipment of the directly associated operational limit are used. This provides\
+      \ a means to indicate which potentially equipment limits are considered\
+      \ for a computed operational limit. The operational limit of the same operational\
+      \ limit type is assumed to be used from the grouped equipment. It is also\
+      \ possible to make assumptions or calculations regarding how flow might split\
+      \ if the equipment is not simply in series."
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
+    is_a: LimitDependency
+    attributes:
+      EquipmentLimitSeriesComponent:
+        description: Equipment linkages that participates in the limit calculation.
+        slot_uri: cim:SeriesEquipmentDependentLimit.EquipmentLimitSeriesComponent
+        range: EquipmentLimitSeriesComponent
+        required: false
+        multivalued: true
+    class_uri: cim:SeriesEquipmentDependentLimit
   Contingency:
     description: An event threatening system reliability, consisting of one or more
       contingency elements.

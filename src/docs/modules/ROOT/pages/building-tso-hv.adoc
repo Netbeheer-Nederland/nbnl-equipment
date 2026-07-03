@@ -48,6 +48,25 @@ technical characteristics and relationships.
   transportcapaciteit*, ATC). Create separate `cim:ActivePowerLimit`-s for
   demand/response
 
+### Capacity through the years
+
+A special case is required for communicating available transport capacity
+(*aanwezige transportcapaciteit*). Providing this information requires the use
+of `cim:ActivePowerLimit`, which does not have a timestamp. As a changing
+`cim:ActivePowerLimit` is a change to the grid connectivity, a **new dataset**
+is required for each *point in time*. The working group has decided that
+visualising changes in connectivity is not in scope for the MVP, so the new
+datasets can be almost identitical to the initial EQ dataset, with only the
+`cim:ActivePowerLimit`-s changing.
+
+This approach is not needed for *gevraagde transportcapaciteit* en *benodigde
+transportcapaciteit*, as these are modeled as `cim:Measurement`-s, which can
+include a timestamp.
+
+NOTE: We've already identified parts of the TenneT grid which would
+benefit from also communicating the grid changes, but that these are currently
+out of scope.
+
 ## Operation (OP)
 
 Dataproduct:: https://modellen.netbeheernederland.nl/nbnl-operation/[Operation (OP)]
@@ -86,51 +105,62 @@ profiles.
 CAUTION: there a structural differences between the current model and profiles.
 Not all attributes can be mapped
 
-[cols="1, 1, 1"]
+[cols="2, 1, 2, 2"]
 |===
-|Heatmap v2 |CIM class |Attribute
+|Heatmap v2 |Profile |CIM class |Attribute
 
 |short_code
+|EQ
 |cim:Substation
 |cim:IdentifiedObject.name
 
 |demand_available_capacity
+|EQ
 |cim:ActivePower
 |cim:ActivePower.value
 
 |demand_constraint
+|AS
 |nl:CongestionDocument
 |nl:Contingency.constraint
 
 |demand_capacity_in_queue
+|OP
 |nl:Queue
 |nl:Queue.capacity
 
 |demand_requests_in_queue
+|OP
 |nl:Queue
 |nl:Queue.requests
 
 |demand_quoted_capacity
+|OP
 |cim:AnalogValue
 |cim:AnalogValue.value
 
 |demand_forecast_capacity
+|OP
 |cim:AnalogValue
 |cim:AnalogValue.value
 
 |project_name
+|AS
 |cim:Work
 |cim:IdentifiedObject.description
 
 |source
+|AS
 |cim:Work
 |nl:Work.source
 
 |status_kind
+|AS
 |cim:Work
 |cim:BaseWork.statusKind
 
 |congestion_url
+|AS
 |nl:CongestionDocument
 |cim:Document.electronicAddress
 
