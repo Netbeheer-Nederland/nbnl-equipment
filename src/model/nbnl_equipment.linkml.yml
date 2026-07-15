@@ -471,6 +471,7 @@ classes:
         any_of:
           - range: PowerTransformer
           - range: EnergyConsumer
+          - range: ACLineSegment
         required: true
         multivalued: false
         description: The conducting equipment of the terminal.  Conducting equipment
@@ -529,8 +530,9 @@ classes:
         description: Container of this equipment.
         slot_uri: cim:Equipment.EquipmentContainer
         any_of:
-          - range: EquipmentContainer
           - range: Substation
+          - range: Line
+          - range: VoltageLevel
         required: false
         multivalued: false
       aggregate:
@@ -658,10 +660,10 @@ classes:
         multivalued: false
       LimitDependencyModel:
         description: The limit dependency models which are used to calculate this
-          limit.   If no limit dependencies are specified then the native limit value
+          limit. If no limit dependencies are specified then the native limit value
           is used.
         slot_uri: cim:OperationalLimit.LimitDependencyModel
-        range: LimitDependency
+        range: SeriesEquipmentDependentLimit
         required: false
         multivalued: true
     abstract: true
@@ -697,20 +699,6 @@ classes:
       operational limits with the same calculation form that apply to a piece of equipment..
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
     is_a: IdentifiedObject
-    attributes:
-      #Equipment:
-      #  description: The equipment for which this limit dependency model is organized
-      #    under.
-      #  slot_uri: cim:LimitDependency.Equipment
-      #  range: Equipment
-      #  required: false
-      #  multivalued: false
-      OperationalLimit:
-        description: The operational limits to which this limit dependency model applies.
-        slot_uri: cim:LimitDependency.OperationalLimit
-        range: OperationalLimit
-        required: false
-        multivalued: true
     class_uri: cim:LimitDependency
   EquipmentLimitSeriesComponent:
     description: This represents one instance of an equipment that contributes to
@@ -730,7 +718,9 @@ classes:
           grouiping can be reused for multiple limits of different types on the same
           instance of equipment.
         slot_uri: cim:EquipmentLimitSeriesComponent.Equipment
-        range: Equipment
+        any_of:
+          - range: PowerTransformer
+          - range: ACLineSegment
         required: true
         multivalued: false
       Terminal:
@@ -755,13 +745,6 @@ classes:
       \ if the equipment is not simply in series."
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
     is_a: LimitDependency
-    attributes:
-      EquipmentLimitSeriesComponent:
-        description: Equipment linkages that participates in the limit calculation.
-        slot_uri: cim:SeriesEquipmentDependentLimit.EquipmentLimitSeriesComponent
-        range: EquipmentLimitSeriesComponent
-        required: false
-        multivalued: true
     class_uri: cim:SeriesEquipmentDependentLimit
   Contingency:
     description: An event threatening system reliability, consisting of one or more
@@ -801,7 +784,9 @@ classes:
       Equipment:
         description: The single piece of equipment to which to apply the contingency.
         slot_uri: cim:ContingencyEquipment.Equipment
-        range: PowerTransformer
+        any_of:
+          - range: PowerTransformer
+          - range: ACLineSegment
         required: true
         multivalued: false
     class_uri: cim:ContingencyEquipment
