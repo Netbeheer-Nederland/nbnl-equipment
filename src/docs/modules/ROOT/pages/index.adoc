@@ -114,33 +114,36 @@ UsagePoint.class: enterprise
 Voltage.class: grid
 VoltageLevel.class: grid
 
-BaseVoltage -- Voltage
-VoltageLevel -- BaseVoltage
-VoltageLevel -- Substation
-VoltageLevel -- ReportingGroup
-Substation -- SubGeographicalRegion
-Substation -- ReportingGroup
-SubGeographicalRegion -- GeographicalRegion
-ConnectivityNode -- VoltageLevel
-ConnectivityNode -- BoundaryPoint
-BoundaryPoint -- ReportingGroup
-PowerTransformer -- ReportingGroup
-PowerTransformerEnd -- PowerTransformer
-PowerTransformerEnd -- Terminal
-Terminal -- ConnectivityNode
-EnergyConsumer -- ReportingGroup
-Line -- SubGeographicalRegion
-Line -- ReportingGroup
 ACLineSegment -- ReportingGroup
 ActivePowerLimit -- ActivePower
 ActivePowerLimit -- OperationalLimitSet
 ActivePowerLimit -- SeriesEquipmentDependentLimit
-OperationalLimitSet -- Terminal
+BaseVoltage -- Voltage
+BoundaryPoint -- ReportingGroup
+ConnectivityNode -- BoundaryPoint
+ConnectivityNode -- VoltageLevel
+ContingencyEquipment -- ACLineSegment
+ContingencyEquipment -- PowerTransformer
+ContingencyEquipment -- Contingency
+EnergyConsumer -- ReportingGroup
 EquipmentLimitSeriesComponent -- SeriesEquipmentDependentLimit
 EquipmentLimitSeriesComponent -- Terminal
-ContingencyEquipment -- Contingency
+Line -- ReportingGroup
+Line -- SubGeographicalRegion
+OperationalLimitSet -- Terminal
+PowerTransformer -- ReportingGroup
+PowerTransformer -- Substation
+PowerTransformerEnd -- PowerTransformer
+PowerTransformerEnd -- Terminal
 ReportingGroup -- ReportingSuperGroup
+SubGeographicalRegion -- GeographicalRegion
+Substation -- ReportingGroup
+Substation -- SubGeographicalRegion
+Terminal -- ConnectivityNode
 UsagePoint -- EnergyConsumer
+VoltageLevel -- BaseVoltage
+VoltageLevel -- ReportingGroup
+VoltageLevel -- Substation
 ----
 
 This data product requires the use of
