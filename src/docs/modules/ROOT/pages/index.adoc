@@ -89,6 +89,7 @@ legend: "" {
 
 direction: up
 
+ACLineSegment.class: grid
 ActivePower.class: grid
 ActivePowerLimit.class: grid
 BaseVoltage.class: grid
@@ -97,41 +98,49 @@ ConnectivityNode.class: grid
 Contingency.class: grid
 ContingencyEquipment.class: grid
 EnergyConsumer.class: grid
+EquipmentLimitSeriesComponent.class: grid
 GeographicalRegion.class: grid
+Line.class: grid
 OperationalLimitSet.class: grid
 PowerTransformer.class: grid
 PowerTransformerEnd.class: grid
 ReportingGroup.class: grid
 ReportingSuperGroup.class: grid
+SeriesEquipmentDependentLimit.class: grid
 SubGeographicalRegion.class: grid
 Substation.class: grid
 Terminal.class: grid
 UsagePoint.class: enterprise
+Voltage.class: grid
 VoltageLevel.class: grid
 
-VoltageLevel -> BaseVoltage
-VoltageLevel -> Substation
-VoltageLevel -> ReportingGroup
-Substation -> SubGeographicalRegion
-Substation -> ReportingGroup
-SubGeographicalRegion -> GeographicalRegion
-ConnectivityNode -> VoltageLevel
-ConnectivityNode -> BoundaryPoint
-BoundaryPoint -> ReportingGroup
-PowerTransformer -> Substation
-PowerTransformer -> ReportingGroup
-PowerTransformerEnd -> PowerTransformer
-PowerTransformerEnd -> Terminal
-Terminal -> ConnectivityNode
-EnergyConsumer -> ReportingGroup
-UsagePoint -> EnergyConsumer
-ActivePowerLimit -> ActivePower
-ActivePowerLimit -> OperationalLimitSet
-OperationalLimitSet -> PowerTransformer
-OperationalLimitSet -> Terminal
-ContingencyEquipment -> PowerTransformer
-ContingencyEquipment -> Contingency
-ReportingGroup -> ReportingSuperGroup
+BaseVoltage -- Voltage
+VoltageLevel -- BaseVoltage
+VoltageLevel -- Substation
+VoltageLevel -- ReportingGroup
+Substation -- SubGeographicalRegion
+Substation -- ReportingGroup
+SubGeographicalRegion -- GeographicalRegion
+ConnectivityNode -- VoltageLevel
+ConnectivityNode -- BoundaryPoint
+BoundaryPoint -- ReportingGroup
+PowerTransformer -- ReportingGroup
+PowerTransformerEnd -- PowerTransformer
+PowerTransformerEnd -- Terminal
+Terminal -- ConnectivityNode
+EnergyConsumer -- ReportingGroup
+Line -- SubGeographicalRegion
+Line -- ReportingGroup
+ACLineSegment -- ReportingGroup
+ActivePowerLimit -- ActivePower
+ActivePowerLimit -- OperationalLimitSet
+ActivePowerLimit -- SeriesEquipmentDependentLimit
+OperationalLimitSet -- Terminal
+EquipmentLimitSeriesComponent -- SeriesEquipmentDependentLimit
+EquipmentLimitSeriesComponent -- Terminal
+ContingencyEquipment -- Contingency
+ReportingGroup -- ReportingSuperGroup
+UsagePoint -- EnergyConsumer
 ----
 
 This data product requires the use of
