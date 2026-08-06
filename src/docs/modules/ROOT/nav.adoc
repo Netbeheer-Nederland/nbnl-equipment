@@ -1,1 +1,3 @@
 * xref::building.adoc[]
+* xref::building-tso-hv.adoc[]
+* xref::building-operationallimit.adoc[]
