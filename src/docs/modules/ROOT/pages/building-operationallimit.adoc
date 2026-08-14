@@ -3,38 +3,14 @@
 == Introduction
 The Operational Limit is part of the NBNL Equipment Profilegroup and this page defines how the operational limits for equipment in a power network are modelled, i.e. the limits associated with the equipment (e.g., transformers, lines, etc.). This document explains the structure and how instances interact across datasets.
 
-The Operational Limits are used to define the voltage, current and power limits (maximum or minimum) that can flow through a piece of equipment. For example, the active power limit is used to define the maximum active power that can flow through a piece of equipment.
+The Operational Limits are used to define the voltage, current and power limits (maximum or minimum) that can flow through a piece of equipment. For example, the active power limit is used to define the maximum active power of an equipment.
 
 One of the use cases for the https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/OperationalLimit.html[cim:OperationalLimit] is in the https://capaciteitskaart.netbeheernederland.nl[capaciteitskaart] where it is used to define the Aanwezige TransportCapaciteit https://begrippen.netbeheernederland.nl/doc/2whwi[(ATC)].
 
-=== Types of Operational Limits
-Basically there are four types of operational limits defined and depending on the requirements of the specific application can be defined in terms of:
-
-* https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/ActivePowerLimit[cim:ActivePowerLimit]
-* https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/ApparentPowerLimit[cim:ApparentPowerLimit]
-* https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/CurrentLimit[cim:CurrentLimit]
-* https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/VoltageLimit[cim:VoltageLimit]
-
-=== Grouping Operational Limits
-There are two structures for operational limits: the OperationalLimitSet and the OperationalLimitType. The https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/OperationalLimitSet.html[cim:OperationalLimitSet] is used to group together different types of operational limits that apply to a specific piece of equipment, while the https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/OperationalLimitType.html[cim:OperationalLimitType] is used to define the specific type of limit (e.g., duration and directionkind (abs, max, min)) that applies to the equipment.
-
-_* OperationalLimitType not yet part of the NBNL EQ profile_
-
-=== OperationalLimitSet
-The OperationalLimitSet object is used to group together different types of operational limits. The https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/OperationalLimitSet.html[cim:OperationalLimitSet] is associated with a https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/Terminal.html[cim:Terminal] of a for example https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/PowerTransformerEnd.html[cim:PowerTransformerEnd].
-Which means that the operational limits defined in the OperationalLimitSet apply to the (power) flow through the terminal and equipment combination.
-
-=== Redundancy Constraints (e.g., n-1)
-Redundancy is an important aspect of the operational limits. The operational limits can be defined for a single piece of equipment, such as a transformer, or for a set of equipment, such as a group of transformers. When set for a group of equipments it can be used to define redundancy, like n-1 configurations. The operational limit is used to define an N-1 constraint.
+See for more background information the https://modellen.netbeheernederland.nl/modeling-guidelines/operationallimit.html[ Operational Limit] pages of the modelling guidelines.
 
 === Flow direction
 To support a flow direction the OperationalLimitSet is associated with a Terminal of a piece of Equipment. In combination with the attribute extension https://modellen.netbeheernederland.nl/nbnl-equipment/upcoming/schema/class/OperationalLimit.html#positiveFlowIn[nl:PositiveFlowIn] in the OperationalLimit object, the direction of the (power) flow is defined. This means that all the operational limits defined in the OperationalLimitSet apply to the power flow through that terminal.
-
-By applying the flow direction (true or false), the value of the operational limit is always positive, regardless of the direction of the flow. Thus, feed-in or consumption is determined by the flow direction, the equipment terminal used, and the PositiveFlowIn attribute. This is important in situations where, for example due to policy, the limit is not identical in both directions of the conducting equipment.
-
-*Definition: positiveFlowIn*
-
-_If true then the measurement is an active power, reactive power or current with the convention that a positive value measured at the Terminal means power is flowing into the related PowerSystemResource._
 
 .flow direction
 image::image-2026-08-06-17-43-44-085.png[alt="flow direction"]
@@ -45,7 +21,9 @@ Some examples:
 - When the operational limit is organised on *T2*, based on the fact that the flow direction is "*true*", a *positive* limit value describes an operational limit based on *feed-in*. The limit applies to the power flowing into the equipment.
 - When the operational limit is organised on *T2*, based on the fact that the flow direction is "*false*", a *positive* limit value describes an operational limit based on *consumption*. The limit applies to the power flowing out of the equipment.
 
-*The terminal of the equipment, in combination with the True of False value of the attribute extension nl:PositiveFlowIn and the fact that the limit value is positive or negative define the direction of the power flow.*
+*The terminal of the equipment, in combination with the True of False value of the attribute extension nl:PositiveFlowIn define the direction of the power and current flow.*
+
+See also the https://modellen.netbeheernederland.nl/modeling-guidelines/flowdirection.html[Flow Direction] page in the modelling guidelines.
 
 == Example of an operational limit
 Below an Operational Limit based on active power (the ActivePowerLimit) with its Value. In this case used to define the maximum active power that can flow through a single piece of equipment. The Limit is associated with an OperationalLimitSet and has a direction defined by the attribute PositiveFlowIn. The value of the limit is defined in terms of MegaWatts (MW) and is set to 50 MW.
