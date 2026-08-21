@@ -93,17 +93,23 @@ ACLineSegment.class: grid
 ActivePower.class: grid
 ActivePowerLimit.class: grid
 BaseVoltage.class: grid
+Bay.class: grid
 BoundaryPoint.class: grid
+BusbarSection.class: grid
 ConnectivityNode.class: grid
 Contingency.class: grid
 ContingencyEquipment.class: grid
+Disconnector.class: grid
 EnergyConsumer.class: grid
 EquipmentLimitSeriesComponent.class: grid
+Fuse.class: grid
 GeographicalRegion.class: grid
+GroundDisconnector.class: grid
 Line.class: grid
 OperationalLimitSet.class: grid
 PowerTransformer.class: grid
 PowerTransformerEnd.class: grid
+ProtectedSwitch.class: grid
 ReportingGroup.class: grid
 ReportingSuperGroup.class: grid
 SeriesEquipmentDependentLimit.class: grid
@@ -119,22 +125,25 @@ ActivePowerLimit -- ActivePower
 ActivePowerLimit -- OperationalLimitSet
 ActivePowerLimit -- SeriesEquipmentDependentLimit
 BaseVoltage -- Voltage
+Bay -- ReportingGroup
 BoundaryPoint -- ReportingGroup
+BusbarSection -- ReportingGroup
 ConnectivityNode -- BoundaryPoint
 ConnectivityNode -- VoltageLevel
-ContingencyEquipment -- ACLineSegment
-ContingencyEquipment -- PowerTransformer
 ContingencyEquipment -- Contingency
+Disconnector -- ReportingGroup
 EnergyConsumer -- ReportingGroup
 EquipmentLimitSeriesComponent -- SeriesEquipmentDependentLimit
 EquipmentLimitSeriesComponent -- Terminal
+Fuse -- ReportingGroup
+GroundDisconnector -- ReportingGroup
 Line -- ReportingGroup
 Line -- SubGeographicalRegion
 OperationalLimitSet -- Terminal
 PowerTransformer -- ReportingGroup
-PowerTransformer -- Substation
 PowerTransformerEnd -- PowerTransformer
 PowerTransformerEnd -- Terminal
+ProtectedSwitch -- ReportingGroup
 ReportingGroup -- ReportingSuperGroup
 SubGeographicalRegion -- GeographicalRegion
 Substation -- ReportingGroup

@@ -22,6 +22,32 @@ annotations:
   exchange_format: application/ld+json
   model_type: data-product
 enums:
+  BreakerConfiguration:
+    description: Switching arrangement for bay.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM
+    enum_uri: cim:BreakerConfiguration
+    permissible_values:
+      breakerAndAHalf:
+        meaning: cim:BreakerConfiguration.breakerAndAHalf
+      doubleBreaker:
+        meaning: cim:BreakerConfiguration.doubleBreaker
+      noBreaker:
+        meaning: cim:BreakerConfiguration.noBreaker
+      singleBreaker:
+        meaning: cim:BreakerConfiguration.singleBreaker
+  BusbarConfiguration:
+    description: Busbar layout for bay.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM
+    enum_uri: cim:BusbarConfiguration
+    permissible_values:
+      doubleBus:
+        meaning: cim:BusbarConfiguration.doubleBus
+      mainWithTransfer:
+        meaning: cim:BusbarConfiguration.mainWithTransfer
+      ringBus:
+        meaning: cim:BusbarConfiguration.ringBus
+      singleBus:
+        meaning: cim:BusbarConfiguration.singleBus
   UnitMultiplier:
     description: "The unit multipliers defined for the CIM.  When applied to unit\
       \ symbols, the unit symbol is treated as a derived unit. Regardless of the contents\
@@ -533,6 +559,7 @@ classes:
           - range: Substation
           - range: Line
           - range: VoltageLevel
+          - range: Bay
         required: false
         multivalued: false
       aggregate:
@@ -856,3 +883,87 @@ classes:
         required: true
         multivalued: false
     class_uri: nl:UpdateInfo
+  BusbarSection:
+    description: A conductor, or group of conductors, with negligible
+      impedance, that serve to connect other conducting equipment within a
+      single substation. Voltage measurements are typically obtained from
+      voltage transformers that are connected to busbar sections. A bus bar
+      section may have many physical terminals but for analysis is modelled
+      with exactly one logical terminal.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: Connector
+    class_uri: cim:BusbarSection
+  Connector:
+    description: A conductor, or group of conductors, with negligible
+      impedance, that serve to connect other conducting equipment within a
+      single substation and are modelled with a single logical terminal.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: ConductingEquipment
+    class_uri: cim:Connector
+  Bay:
+    description: A collection of power system resources (within a given
+      substation) including conducting equipment, protection relays,
+      measurements, and telemetry. A bay typically represents a physical
+      grouping related to modularization of equipment.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
+    is_a: EquipmentContainer
+    attributes:
+      breakerConfiguration:
+        description: Breaker configuration.
+        slot_uri: cim:Bay.breakerConfiguration
+        range: BreakerConfiguration
+        required: false
+        multivalued: false
+      busBarConfiguration:
+        description: Busbar configuration.
+        slot_uri: cim:Bay.busBarConfiguration
+        range: BusbarConfiguration
+        required: false
+        multivalued: false
+    class_uri: cim:Bay
+  Disconnector:
+    description: A manually operated or motor operated mechanical switching
+      device used for changing the connections in a circuit, or for isolating a
+      circuit or equipment from a source of power. It is required to open or
+      close circuits when negligible current is broken or made.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: Switch
+    class_uri: cim:Disconnector
+  Switch:
+    description: A generic device designed to close, or open, or both, one or
+      more electric circuits.  All switches are two terminal devices including
+      grounding switches. The ACDCTerminal.connected at the two sides of the
+      switch shall not be considered for assessing switch connectivity, i.e.
+      only .normalOpen is relevant.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: ConductingEquipment
+    attributes:
+      normalOpen:
+        description: The attribute is used in cases when no Measurement for the
+          status value is present. If the Switch has a status measurement the
+          Discrete.normalValue is expected to match with the Switch.normalOpen.
+        slot_uri: cim:Switch.normalOpen
+        range: boolean
+        required: false
+        multivalued: false
+    class_uri: cim:Switch
+  Fuse:
+    description: An overcurrent protective device with a circuit opening
+      fusible part that is heated and severed by the passage of overcurrent
+      through it. A fuse is considered a switching device because it breaks
+      current.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: Switch
+    class_uri: cim:Fuse
+  GroundDisconnector:
+    description: A manually operated or motor operated mechanical switching
+      device used for isolating a circuit or equipment from ground.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: Switch
+    class_uri: cim:GroundDisconnector
+  ProtectedSwitch:
+    description: A ProtectedSwitch is a switching device that can be operated
+      by ProtectionEquipment.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: Switch
+    class_uri: cim:ProtectedSwitch
