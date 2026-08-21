@@ -28,20 +28,6 @@
       '@type': xsd:date
     nl:UpdateInfo.type:
       '@id': nl:UpdateInfoKind.ATC
-  - '@id': urn:uuid:161961d6-7b2c-44e3-aa18-2ecf36417242
-    '@type': nl:UpdateInfo
-    nl:UpdateInfo.date:
-      '@value': '2026-05-08'
-      '@type': xsd:date
-    nl:UpdateInfo.type:
-      '@id': nl:UpdateInfoKind.NU
-  - '@id': urn:uuid:4f466a23-b410-405b-8b1d-0c717a515b01
-    '@type': nl:UpdateInfo
-    nl:UpdateInfo.date:
-      '@value': '2026-05-08'
-      '@type': xsd:date
-    nl:UpdateInfo.type:
-      '@id': nl:UpdateInfoKind.CO
 '@graph':
   # --- cim:VoltageLevel ------------------------------------------------------
   - '@id': urn:uuid:73092cf3-eed8-4a92-ac86-cf09390c39d4
