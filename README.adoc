@@ -1,1 +1,4 @@
 = NBNL Equipment
+
+Defines the electrical equipment in the network model, including their
+technical characteristics and relationships.
