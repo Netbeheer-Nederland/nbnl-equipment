@@ -99,59 +99,58 @@ BusbarSection.class: grid
 ConnectivityNode.class: grid
 Contingency.class: grid
 ContingencyEquipment.class: grid
-Disconnector.class: grid
 EnergyConsumer.class: grid
 EquipmentLimitSeriesComponent.class: grid
-Fuse.class: grid
 GeographicalRegion.class: grid
-GroundDisconnector.class: grid
 Line.class: grid
 OperationalLimitSet.class: grid
 PowerTransformer.class: grid
 PowerTransformerEnd.class: grid
-ProtectedSwitch.class: grid
 ReportingGroup.class: grid
 ReportingSuperGroup.class: grid
 SeriesEquipmentDependentLimit.class: grid
 SubGeographicalRegion.class: grid
 Substation.class: grid
+Switch.class: grid
 Terminal.class: grid
 UsagePoint.class: enterprise
 Voltage.class: grid
 VoltageLevel.class: grid
 
-ACLineSegment -- ReportingGroup
+ACLineSegment -- Line
 ActivePowerLimit -- ActivePower
 ActivePowerLimit -- OperationalLimitSet
 ActivePowerLimit -- SeriesEquipmentDependentLimit
 BaseVoltage -- Voltage
-Bay -- ReportingGroup
-BoundaryPoint -- ReportingGroup
-BusbarSection -- ReportingGroup
 ConnectivityNode -- BoundaryPoint
 ConnectivityNode -- VoltageLevel
+ContingencyEquipment -- ACLineSegment
 ContingencyEquipment -- Contingency
-Disconnector -- ReportingGroup
-EnergyConsumer -- ReportingGroup
+ContingencyEquipment -- PowerTransformer
+EquipmentLimitSeriesComponent -- ACLineSegment
+EquipmentLimitSeriesComponent -- PowerTransformer
 EquipmentLimitSeriesComponent -- SeriesEquipmentDependentLimit
 EquipmentLimitSeriesComponent -- Terminal
-Fuse -- ReportingGroup
-GroundDisconnector -- ReportingGroup
-Line -- ReportingGroup
 Line -- SubGeographicalRegion
+OperationalLimitSet -- ACLineSegment
+OperationalLimitSet -- PowerTransformer
 OperationalLimitSet -- Terminal
-PowerTransformer -- ReportingGroup
+PowerTransformer -- Substation
 PowerTransformerEnd -- PowerTransformer
 PowerTransformerEnd -- Terminal
-ProtectedSwitch -- ReportingGroup
 ReportingGroup -- ReportingSuperGroup
 SubGeographicalRegion -- GeographicalRegion
-Substation -- ReportingGroup
 Substation -- SubGeographicalRegion
+Switch -- Bay
+Terminal -- ACLineSegment
+Terminal -- BusbarSection
 Terminal -- ConnectivityNode
+Terminal -- EnergyConsumer
+Terminal -- PowerTransformer
+Terminal -- Switch
 UsagePoint -- EnergyConsumer
 VoltageLevel -- BaseVoltage
-VoltageLevel -- ReportingGroup
+VoltageLevel -- Bay
 VoltageLevel -- Substation
 ----
 

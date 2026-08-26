@@ -1,4 +1,4 @@
-= Building the Operational Limit
+= Building the operational limit
 
 == Introduction
 The Operational Limit is part of the NBNL Equipment Profilegroup and this page defines how the operational limits for equipment in a power network are modelled, i.e. the limits associated with the equipment (e.g., transformers, lines, etc.). This document explains the structure and how instances interact across datasets.

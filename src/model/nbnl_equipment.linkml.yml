@@ -500,9 +500,11 @@ classes:
           - range: PowerTransformer
           - range: EnergyConsumer
           - range: ACLineSegment
+          - range: BusbarSection
+          - range: Switch
         required: true
         multivalued: false
-        description: The conducting equipment of the terminal.  Conducting equipment
+        description: The conducting equipment of the terminal. Conducting equipment
           have  terminals that may be connected to other conducting equipment terminals
           via connectivity nodes or topological nodes.
     class_uri: cim:Terminal
@@ -906,14 +908,6 @@ classes:
         required: false
         multivalued: false
     class_uri: cim:Bay
-  Disconnector:
-    description: A manually operated or motor operated mechanical switching
-      device used for changing the connections in a circuit, or for isolating a
-      circuit or equipment from a source of power. It is required to open or
-      close circuits when negligible current is broken or made.
-    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
-    is_a: Switch
-    class_uri: cim:Disconnector
   Switch:
     description: A generic device designed to close, or open, or both, one or
       more electric circuits.  All switches are two terminal devices including
@@ -932,23 +926,3 @@ classes:
         required: false
         multivalued: false
     class_uri: cim:Switch
-  Fuse:
-    description: An overcurrent protective device with a circuit opening
-      fusible part that is heated and severed by the passage of overcurrent
-      through it. A fuse is considered a switching device because it breaks
-      current.
-    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
-    is_a: Switch
-    class_uri: cim:Fuse
-  GroundDisconnector:
-    description: A manually operated or motor operated mechanical switching
-      device used for isolating a circuit or equipment from ground.
-    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
-    is_a: Switch
-    class_uri: cim:GroundDisconnector
-  ProtectedSwitch:
-    description: A ProtectedSwitch is a switching device that can be operated
-      by ProtectionEquipment.
-    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
-    is_a: Switch
-    class_uri: cim:ProtectedSwitch
