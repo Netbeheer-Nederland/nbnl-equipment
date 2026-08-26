@@ -89,49 +89,69 @@ legend: "" {
 
 direction: up
 
+ACLineSegment.class: grid
 ActivePower.class: grid
 ActivePowerLimit.class: grid
 BaseVoltage.class: grid
+Bay.class: grid
 BoundaryPoint.class: grid
+BusbarSection.class: grid
 ConnectivityNode.class: grid
 Contingency.class: grid
 ContingencyEquipment.class: grid
 EnergyConsumer.class: grid
+EquipmentLimitSeriesComponent.class: grid
 GeographicalRegion.class: grid
+Line.class: grid
 OperationalLimitSet.class: grid
 PowerTransformer.class: grid
 PowerTransformerEnd.class: grid
 ReportingGroup.class: grid
 ReportingSuperGroup.class: grid
+SeriesEquipmentDependentLimit.class: grid
 SubGeographicalRegion.class: grid
 Substation.class: grid
+Switch.class: grid
 Terminal.class: grid
 UsagePoint.class: enterprise
+Voltage.class: grid
 VoltageLevel.class: grid
 
-VoltageLevel -> BaseVoltage
-VoltageLevel -> Substation
-VoltageLevel -> ReportingGroup
-Substation -> SubGeographicalRegion
-Substation -> ReportingGroup
-SubGeographicalRegion -> GeographicalRegion
-ConnectivityNode -> VoltageLevel
-ConnectivityNode -> BoundaryPoint
-BoundaryPoint -> ReportingGroup
-PowerTransformer -> Substation
-PowerTransformer -> ReportingGroup
-PowerTransformerEnd -> PowerTransformer
-PowerTransformerEnd -> Terminal
-Terminal -> ConnectivityNode
-EnergyConsumer -> ReportingGroup
-UsagePoint -> EnergyConsumer
-ActivePowerLimit -> ActivePower
-ActivePowerLimit -> OperationalLimitSet
-OperationalLimitSet -> PowerTransformer
-OperationalLimitSet -> Terminal
-ContingencyEquipment -> PowerTransformer
-ContingencyEquipment -> Contingency
-ReportingGroup -> ReportingSuperGroup
+ACLineSegment -- Line
+ActivePowerLimit -- ActivePower
+ActivePowerLimit -- OperationalLimitSet
+ActivePowerLimit -- SeriesEquipmentDependentLimit
+BaseVoltage -- Voltage
+ConnectivityNode -- BoundaryPoint
+ConnectivityNode -- VoltageLevel
+ContingencyEquipment -- ACLineSegment
+ContingencyEquipment -- Contingency
+ContingencyEquipment -- PowerTransformer
+EquipmentLimitSeriesComponent -- ACLineSegment
+EquipmentLimitSeriesComponent -- PowerTransformer
+EquipmentLimitSeriesComponent -- SeriesEquipmentDependentLimit
+EquipmentLimitSeriesComponent -- Terminal
+Line -- SubGeographicalRegion
+OperationalLimitSet -- ACLineSegment
+OperationalLimitSet -- PowerTransformer
+OperationalLimitSet -- Terminal
+PowerTransformer -- Substation
+PowerTransformerEnd -- PowerTransformer
+PowerTransformerEnd -- Terminal
+ReportingGroup -- ReportingSuperGroup
+SubGeographicalRegion -- GeographicalRegion
+Substation -- SubGeographicalRegion
+Switch -- Bay
+Terminal -- ACLineSegment
+Terminal -- BusbarSection
+Terminal -- ConnectivityNode
+Terminal -- EnergyConsumer
+Terminal -- PowerTransformer
+Terminal -- Switch
+UsagePoint -- EnergyConsumer
+VoltageLevel -- BaseVoltage
+VoltageLevel -- Bay
+VoltageLevel -- Substation
 ----
 
 This data product requires the use of

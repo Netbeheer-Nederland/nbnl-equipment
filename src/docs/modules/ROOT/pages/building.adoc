@@ -175,6 +175,26 @@ License Area, associated to the boundary dataset.
 CAUTION: a DSO dataset does not validate stand-alone against the SHACL, the
 boundary dataset is also required!
 
+=== Substation
+
+Each DSO creates a separate Substation as a container for `Equipment`-s, which
+is contained in the License Area (`SubGeographicalRegion`) for that DSO. The
+relationship between `Substation`-s from both TSO & DSO is established through
+the use of `BoundaryPoint`-s.
+
+[source,json]
+----
+{
+  "@id": "urn:uuid:d256319c-f2d8-4bee-a586-37167d841a78",
+  "@type": "cim:Substation",
+  "cim:Substation.Region": {
+    "@id": "urn:uuid:4f74c8e2-adb5-4815-9607-eb00fb6a0d55"
+  },
+  "cim:IdentifiedObject.mRID": "d256319c-f2d8-4bee-a586-37167d841a78",
+  "cim:IdentifiedObject.name": "Liander MS-ruimte 10"
+},
+----
+
 === Power Transformer
 
 [source,json]
@@ -183,16 +203,14 @@ boundary dataset is also required!
   "@id": "urn:uuid:efeba515-547b-4c1a-8cd0-4cbc5f714283",
   "@type": "cim:PowerTransformer", <1>
   "cim:Equipment.EquipmentContainer": {
-    "@id": "urn:uuid:755de658-5567-4b65-85bd-f6d3cf41d992" <2>
+    "@id": "urn:uuid:d256319c-f2d8-4bee-a586-37167d841a78" <2>
   },
   "cim:IdentifiedObject.mRID": "efeba515-547b-4c1a-8cd0-4cbc5f714283"
 },
 ----
 
-Add all cim:PowerTransformer-s (1) on the distribution side of the
-cim:Substation (2) from the boundary dataset. Do not create an instance of the
-cim:Substation from the boundary dataset, refer to the mRID defined in the
-boundary dataset for the cim:Substation.
+Add all cim:PowerTransformer-s (1) to the cim:Substation (2) created in the
+previous step.
 
 [source,json]
 ----

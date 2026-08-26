@@ -19,7 +19,6 @@
   'dcterms:title': 'Liander N.V.'
 'dcterms:references':
   - '@id': urn:uuid:5bdf9a6d-ef38-4c4d-a6ee-42a9accdec64
-  - '@id': urn:uuid:4562ba86-b5e0-470b-8e36-dae55428d77f
 '@graph':
   # --- Substation
   - '@id': urn:uuid:4b1ce74e-2909-4311-9d12-bc6c12c45006

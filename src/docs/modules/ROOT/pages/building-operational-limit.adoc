@@ -1,0 +1,162 @@
+= Building the operational limit
+
+== Introduction
+The Operational Limit is part of the NBNL Equipment Profilegroup and this page defines how the operational limits for equipment in a power network are modelled, i.e. the limits associated with the equipment (e.g., transformers, lines, etc.). This document explains the structure and how instances interact across datasets.
+
+The Operational Limits are used to define the voltage, current and power limits (maximum or minimum) that can flow through a piece of equipment. For example, the active power limit is used to define the maximum active power of an equipment.
+
+One of the use cases for the https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/OperationalLimit.html[cim:OperationalLimit] is in the https://capaciteitskaart.netbeheernederland.nl[capaciteitskaart] where it is used to define the Aanwezige TransportCapaciteit https://begrippen.netbeheernederland.nl/doc/2whwi[(ATC)].
+
+See for more background information the https://modellen.netbeheernederland.nl/modeling-guidelines/operationallimit.html[ Operational Limit] pages of the modelling guidelines.
+
+=== Flow direction
+To support a flow direction the OperationalLimitSet is associated with a Terminal of a piece of Equipment. In combination with the attribute extension https://modellen.netbeheernederland.nl/nbnl-equipment/upcoming/schema/class/OperationalLimit.html#positiveFlowIn[nl:PositiveFlowIn] in the OperationalLimit object, the direction of the (power) flow is defined. This means that all the operational limits defined in the OperationalLimitSet apply to the power flow through that terminal.
+
+.flow direction
+image::image-2026-08-06-17-43-44-085.png[alt="flow direction"]
+
+Some examples:
+
+- When the operational limit is organised on *T1*, based on the fact that the flow direction is "*true*", a *positive* limit value describes an operational Limit based on *consumption*. The limit applies to the power flowing into the equipment.
+- When the operational limit is organised on *T2*, based on the fact that the flow direction is "*true*", a *positive* limit value describes an operational limit based on *feed-in*. The limit applies to the power flowing into the equipment.
+- When the operational limit is organised on *T2*, based on the fact that the flow direction is "*false*", a *positive* limit value describes an operational limit based on *consumption*. The limit applies to the power flowing out of the equipment.
+
+*The terminal of the equipment, in combination with the True of False value of the attribute extension nl:PositiveFlowIn define the direction of the power and current flow.*
+
+See also the https://modellen.netbeheernederland.nl/modeling-guidelines/flowdirection.html[Flow Direction] page in the modelling guidelines.
+
+== Example of an operational limit
+Below an Operational Limit based on active power (the ActivePowerLimit) with its Value. In this case used to define the maximum active power that can flow through a single piece of equipment. The Limit is associated with an OperationalLimitSet and has a direction defined by the attribute PositiveFlowIn. The value of the limit is defined in terms of MegaWatts (MW) and is set to 50 MW.
+
+.Operational Limit
+[source,json]
+----
+    {
+      "@id": "urn:uuid:9974d869-743b-5035-8851-ae40c6aa64e3",
+      "@type": "cim:ActivePowerLimit", <1>
+      "cim:ActivePowerLimit.value": {
+        "@id": "urn:uuid:3e36a318-c72d-5512-b509-ce1719202b57"
+      },
+      "cim:OperationalLimit.OperationalLimitSet": {
+        "@id": "urn:uuid:a49814fc-f95f-53ac-a5ab-85c02b5c3e72" <6>
+      },
+      "cim:IdentifiedObject.mRID": "9974d869-743b-5035-8851-ae40c6aa64e3",
+      "cim:IdentifiedObject.name": "Aanwezige transportcapaciteit (afname)",
+      "nl:OperationalLimit.positiveFlowIn": false <5>
+    },
+    {
+      "@id": "urn:uuid:3e36a318-c72d-5512-b509-ce1719202b57",
+      "@type": "cim:ActivePower",
+      "cim:ActivePower.multiplier": {
+        "@id": "cim:UnitMultiplier.M" <3>
+      },
+      "cim:ActivePower.unit": {
+        "@id": "cim:UnitSymbol.W" <2>
+      },
+      "cim:ActivePower.value": {
+        "@value": 50.0, <4>
+        "@type": "xsd:float"
+      }
+    }
+----
+<1> The active power limit
+<2> Defined in terms of Watts (W)
+<3> The multiplier is set to Mega (M),
+<4> Means that the value of the active power limit is 50 MW. The unit and multiplier can be changed to any other unit of activepower, such as kilowatts (kW) or gigawatts (GW), depending on the requirements.
+<5> The direction of the power flow is defined as positiveFlowIn = False, which means that the limit applies to the power flowing out of the equipment. Because this limit is related to the T2 terminal of the PowerTransformerEnd, this means that a positieve limit applies to the power flowing out of the equipment (i.e., Consumption).
+<6> The operational limit is associated with an OperationalLimitSet, which groups together different types of operational limits that apply to the equipment.
+
+== Operational Limit of a single piece of equipment
+The OperationalLimitSet object is associated with a Terminal of for example a PowerTransformerEnd. This means that for the operational limits defined in this OperationalLimitSet in case of power or current the flow direction is based on the terminal and equipment association. The OperationalLimitSet groups together different types of operational limits that apply to the equipment.
+
+.Operational Limit Set
+[source,json]
+----
+    {
+      "@id": "urn:uuid:a49814fc-f95f-53ac-a5ab-85c02b5c3e72",
+      "@type": "cim:OperationalLimitSet",
+      "cim:OperationalLimitSet.Equipment": {
+        "@id": "urn:uuid:1e065300-729b-5afc-a26f-1b48c6fe9628"
+      },
+      "cim:OperationalLimitSet.Terminal": {
+        "@id": "urn:uuid:51c32041-d9d1-54fc-a435-1d15ce4a5937"
+      },
+      "cim:IdentifiedObject.mRID": "a49814fc-f95f-53ac-a5ab-85c02b5c3e72"
+    }
+----
+
+== operational limit of a set of equipment
+When there is a need to define a constraint based on a grouping of equipment for example in case of redundancy (n-1) then
+the OperationalLimit has an association available with the https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/ActivePowerLimit.html#LimitDependencyModel[cim:ActivePowerLimit.LimitDependencyModel].
+
+.Operational Limit (with LimitDependencyModel)
+[source,json]
+----
+    {
+      "@id": "urn:uuid:78575ca6-56f3-4889-884b-db02c8a16893",
+      "@type": "cim:ActivePowerLimit",
+      "cim:ActivePowerLimit.value": {
+        "@id": "urn:uuid:fb79cf05-09fb-4b99-844e-b876f85335b3"
+      },
+      "nl:OperationalLimit.positiveFlowIn": true,
+      "cim:OperationalLimit.LimitDependencyModel": [
+        {
+          "@id": "urn:uuid:33b8f266-9d7f-43dc-bb6c-5a4d1acd1325"
+        }
+      ],
+      "cim:IdentifiedObject.mRID": "78575ca6-56f3-4889-884b-db02c8a16893",
+      "cim:IdentifiedObject.name": "Aanwezige transportcapaciteit (grid security n-1) (invoeding)"
+    }
+----
+
+Create a SeriesEquipmentDependentLimit to define the operational limits for a set of equipments, such as a group of PowerTransformers. The OperationalLimits, see above, are associated with the https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/SeriesEquipmentDependentLimit.html[cim:SeriesEquipmentDependentLimit] based on the LimitDependencyModel.
+
+The SeriesEquipmentDependentLimit can be used to define redundancy, like n-1 configurations, as a constraint. It can also been used to represent the operational limit of a set of equipment in series (for example a cable based of several ACLineSegments).
+
+.Series Equipment Dependent Limit
+[source,json]
+----
+    {
+      "@id": "urn:uuid:33b8f266-9d7f-43dc-bb6c-5a4d1acd1325",
+      "@type": "cim:SeriesEquipmentDependentLimit",
+      "cim:IdentifiedObject.mRID": "33b8f266-9d7f-43dc-bb6c-5a4d1acd1325",
+      "cim:IdentifiedObject.name": "PT1 & PT2 (grid security n-1)"
+    }
+----
+
+Add each equipment with its terminal (for indicating the flowdirection) to the https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/EquipmentLimitSeriesComponent.html[cim:EquipmentLimitSeriesComponent] and associate these components to the same SeriesEquipmentDependentLimit.
+
+.Equipment Limit Series Component
+[source,json]
+----
+  {
+    "@id": "urn:uuid:eae3cee2-f5c2-4dd5-8e02-512258129b6d",
+    "@type": "cim:EquipmentLimitSeriesComponent",
+    "cim:EquipmentLimitSeriesComponent.SeriesEquipmentDependentLimit": {
+      "@id": "urn:uuid:33b8f266-9d7f-43dc-bb6c-5a4d1acd1325"
+    },
+    "cim:EquipmentLimitSeriesComponent.Equipment": {
+      "@id": "urn:uuid:b7949224-9031-4365-a891-ffcdac3efcf7"
+    },
+    "nl:EquipmentLimitSeriesComponent.Terminal": {
+      "@id": "urn:uuid:af479e25-2afe-4410-965d-f6cec798a3e8"
+    },
+    "cim:IdentifiedObject.mRID": "eae3cee2-f5c2-4dd5-8e02-512258129b6d",
+    "cim:IdentifiedObject.name": "PT1"
+  },
+  {
+    "@id": "urn:uuid:20960b21-5dda-482d-ab67-a564b99099a6",
+    "@type": "cim:EquipmentLimitSeriesComponent",
+    "cim:EquipmentLimitSeriesComponent.SeriesEquipmentDependentLimit": {
+      "@id": "urn:uuid:33b8f266-9d7f-43dc-bb6c-5a4d1acd1325"
+    },
+    "cim:EquipmentLimitSeriesComponent.Equipment": {
+      "@id": "urn:uuid:a5b57c56-a824-411c-b0b9-db68bb2a9fe6"
+    },
+    "nl:EquipmentLimitSeriesComponent.Terminal": {
+      "@id": "urn:uuid:b390442a-1dfc-46f2-a324-fe405282c65d"
+    },
+    "cim:IdentifiedObject.mRID": "20960b21-5dda-482d-ab67-a564b99099a6",
+    "cim:IdentifiedObject.name": "PT2"
+  }
+----

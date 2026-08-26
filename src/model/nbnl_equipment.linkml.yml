@@ -22,6 +22,40 @@ annotations:
   exchange_format: application/ld+json
   model_type: data-product
 enums:
+  UpdateInfoKind:
+    description: Type of information that has been updated as part of this
+      dataset.
+    enum_uri: nl:UpdateInfoKind
+    permissible_values:
+      ATC:
+        description: Aanwezige transportcapaciteit.
+        meaning: nl:UpdateInfoKind.ATC
+  BreakerConfiguration:
+    description: Switching arrangement for bay.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM
+    enum_uri: cim:BreakerConfiguration
+    permissible_values:
+      breakerAndAHalf:
+        meaning: cim:BreakerConfiguration.breakerAndAHalf
+      doubleBreaker:
+        meaning: cim:BreakerConfiguration.doubleBreaker
+      noBreaker:
+        meaning: cim:BreakerConfiguration.noBreaker
+      singleBreaker:
+        meaning: cim:BreakerConfiguration.singleBreaker
+  BusbarConfiguration:
+    description: Busbar layout for bay.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM
+    enum_uri: cim:BusbarConfiguration
+    permissible_values:
+      doubleBus:
+        meaning: cim:BusbarConfiguration.doubleBus
+      mainWithTransfer:
+        meaning: cim:BusbarConfiguration.mainWithTransfer
+      ringBus:
+        meaning: cim:BusbarConfiguration.ringBus
+      singleBus:
+        meaning: cim:BusbarConfiguration.singleBus
   UnitMultiplier:
     description: "The unit multipliers defined for the CIM.  When applied to unit\
       \ symbols, the unit symbol is treated as a derived unit. Regardless of the contents\
@@ -116,30 +150,24 @@ enums:
         meaning: cim:UnitSymbol.Wb
       Wh:
         meaning: cim:UnitSymbol.Wh
-  UpdateInfoKind:
-    description: Type of information that has been updated as part of this
-      dataset.
-    enum_uri: nl:UpdateInfoKind
-    permissible_values:
-      KI:
-        description: Kleurinformatie.
-        meaning: nl:UpdateInfoKind.KI
-      ATC:
-        description: Aanwezige transportcapaciteit.
-        meaning: nl:UpdateInfoKind.ATC
-      BTC:
-        description: Benodigde transportcapaciteit.
-        meaning: nl:UpdateInfoKind.BTC
-      WR:
-        description: Wachtrij.
-        meaning: nl:UpdateInfoKind.WR
-      NU:
-        description: Netuitbreidingen.
-        meaning: nl:UpdateInfoKind.NU
-      CO:
-        description: Congestie opgelost.
-        meaning: nl:UpdateInfoKind.CO
 classes:
+  UpdateInfo:
+    description: Specific type of information that was updated for this
+      dataset.
+    attributes:
+      date:
+        description: Date of the update.
+        slot_uri: nl:UpdateInfo.date
+        range: date
+        required: true
+        multivalued: false
+      type:
+        description: Type of the update.
+        slot_uri: nl:UpdateInfo.type
+        range: UpdateInfoKind
+        required: true
+        multivalued: false
+    class_uri: nl:UpdateInfo
   BaseVoltage:
     description: 'Defines a system base voltage which is referenced. '
     from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
@@ -439,6 +467,13 @@ classes:
     exact_mappings:
     - nbnl-term:8eytm
     class_uri: cim:PowerTransformerEnd
+  Conductor:
+    description: 'Combination of conducting material with consistent electrical characteristics,
+      building a single electrical system, used to carry current between points in
+      the power system.  '
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: ConductingEquipment
+    class_uri: cim:Conductor
   ConductingEquipment:
     description: The parts of the AC power system that are designed to carry current
       or that are conductively connected through terminals.
@@ -464,9 +499,12 @@ classes:
         any_of:
           - range: PowerTransformer
           - range: EnergyConsumer
+          - range: ACLineSegment
+          - range: BusbarSection
+          - range: Switch
         required: true
         multivalued: false
-        description: The conducting equipment of the terminal.  Conducting equipment
+        description: The conducting equipment of the terminal. Conducting equipment
           have  terminals that may be connected to other conducting equipment terminals
           via connectivity nodes or topological nodes.
     class_uri: cim:Terminal
@@ -522,12 +560,59 @@ classes:
         description: Container of this equipment.
         slot_uri: cim:Equipment.EquipmentContainer
         any_of:
-          - range: EquipmentContainer
           - range: Substation
+          - range: Line
+          - range: VoltageLevel
+          - range: Bay
+        required: false
+        multivalued: false
+      aggregate:
+        description: "The aggregate flag provides an alternative way of representing\
+          \ an aggregated (equivalent) element. It is applicable in cases when the\
+          \ dedicated classes for equivalent equipment do not have all of the attributes\
+          \ necessary to represent the required level of detail.  In case the flag\
+          \ is set to \u201Ctrue\u201D the single instance of equipment represents\
+          \ multiple pieces of equipment that have been modelled together as an aggregate\
+          \ equivalent obtained by a network reduction procedure. Examples would be\
+          \ power transformers or synchronous machines operating in parallel modelled\
+          \ as a single aggregate power transformer or aggregate synchronous machine.\
+          \  \r\nThe attribute is not used for EquivalentBranch, EquivalentShunt and\
+          \ EquivalentInjection."
+        slot_uri: cim:Equipment.aggregate
+        range: boolean
         required: false
         multivalued: false
     abstract: true
     class_uri: cim:Equipment
+  Line:
+    class_uri: cim:Line
+    is_a: EquipmentContainer
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    description: 'Contains equipment beyond a substation belonging to a power transmission
+      line. '
+    attributes:
+      Region:
+        slot_uri: cim:Line.Region
+        range: SubGeographicalRegion
+        required: true
+        multivalued: false
+        description: The sub-geographical region of the line.
+  ACLineSegment:
+    description: "A wire or combination of wires, with consistent electrical characteristics,\
+      \ building a single electrical system, used to carry alternating current between\
+      \ points in the power system.\r\nFor symmetrical, transposed three phase lines,\
+      \ it is sufficient to use attributes of the line segment, which describe impedances\
+      \ and admittances for the entire length of the segment.  Additionally impedances\
+      \ can be computed by using length and associated per length impedances.\r\n\
+      The BaseVoltage at the two ends of ACLineSegments in a Line shall have the same\
+      \ BaseVoltage.nominalVoltage. However, boundary lines may have slightly different\
+      \ BaseVoltage.nominalVoltages and variation is allowed. Larger voltage difference\
+      \ in general requires use of an equivalent branch."
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: Conductor
+    exact_mappings:
+    - vocab:verbinding
+    class_uri: cim:ACLineSegment
   ACDCTerminal:
     description: An electrical connection point (AC or DC) to a piece of conducting
       equipment. Terminals are connected at physical connection points called connectivity
@@ -594,7 +679,7 @@ classes:
         description: The limit set to which the limit values belong.
         slot_uri: cim:OperationalLimit.OperationalLimitSet
         range: OperationalLimitSet
-        required: true
+        required: false
         multivalued: false
       positiveFlowIn:
         description: If true then this OperationalLimit follows the convention
@@ -604,6 +689,14 @@ classes:
         range: boolean
         required: false
         multivalued: false
+      LimitDependencyModel:
+        description: The limit dependency models which are used to calculate this
+          limit. If no limit dependencies are specified then the native limit value
+          is used.
+        slot_uri: cim:OperationalLimit.LimitDependencyModel
+        range: SeriesEquipmentDependentLimit
+        required: false
+        multivalued: true
     abstract: true
     class_uri: cim:OperationalLimit
   OperationalLimitSet:
@@ -619,7 +712,9 @@ classes:
       Equipment:
         description: The equipment to which the limit set applies.
         slot_uri: cim:OperationalLimitSet.Equipment
-        range: PowerTransformer
+        any_of:
+          - range: PowerTransformer
+          - range: ACLineSegment
         required: false
         multivalued: false
       Terminal:
@@ -629,6 +724,59 @@ classes:
         required: false
         multivalued: false
     class_uri: cim:OperationalLimitSet
+  LimitDependency:
+    description: A limit calculation model used to compute an operational limit based
+      on external input such as temperature. These are intended to be shared among
+      operational limits with the same calculation form that apply to a piece of equipment..
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
+    is_a: IdentifiedObject
+    class_uri: cim:LimitDependency
+  EquipmentLimitSeriesComponent:
+    description: This represents one instance of an equipment that contributes to
+      the calculation of an operational limit.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
+    is_a: IdentifiedObject
+    attributes:
+      SeriesEquipmentDependentLimit:
+        description: Calculation in which the refernce to equipment applies.
+        slot_uri: cim:EquipmentLimitSeriesComponent.SeriesEquipmentDependentLimit
+        range: SeriesEquipmentDependentLimit
+        required: true
+        multivalued: false
+      Equipment:
+        description: Equipment contributing toward the series limit.   The reference
+          here is to Equipment rather than a specific limit on the equipment so the
+          grouiping can be reused for multiple limits of different types on the same
+          instance of equipment.
+        slot_uri: cim:EquipmentLimitSeriesComponent.Equipment
+        any_of:
+          - range: PowerTransformer
+          - range: ACLineSegment
+        required: true
+        multivalued: false
+      Terminal:
+        description: The terminal where the operational limit set apply.
+        slot_uri: nl:EquipmentLimitSeriesComponent.Terminal
+        range: Terminal
+        required: false
+        multivalued: false
+    class_uri: cim:EquipmentLimitSeriesComponent
+  SeriesEquipmentDependentLimit:
+    description: "Limit based on most restrictive equipment limit.\r\nA specification\
+      \ of equipment that determines the calculated operational limit values based\
+      \ upon other equipment and their ratings. The most restrictive limit connected\
+      \ within the group is used. The physical connection based on switch\
+      \ status for example may also impact which elements in the group are considered.\
+      \ Any equipment in the group that are presently connected with the\
+      \ equipment of the directly associated operational limit are used. This provides\
+      \ a means to indicate which potentially equipment limits are considered\
+      \ for a computed operational limit. The operational limit of the same operational\
+      \ limit type is assumed to be used from the grouped equipment. It is also\
+      \ possible to make assumptions or calculations regarding how flow might split\
+      \ if the equipment is not simply in series."
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.InfIEC61970.InfOperationalLimits
+    is_a: LimitDependency
+    class_uri: cim:SeriesEquipmentDependentLimit
   Contingency:
     description: An event threatening system reliability, consisting of one or more
       contingency elements.
@@ -667,7 +815,9 @@ classes:
       Equipment:
         description: The single piece of equipment to which to apply the contingency.
         slot_uri: cim:ContingencyEquipment.Equipment
-        range: PowerTransformer
+        any_of:
+          - range: PowerTransformer
+          - range: ACLineSegment
         required: true
         multivalued: false
     class_uri: cim:ContingencyEquipment
@@ -720,20 +870,59 @@ classes:
     exact_mappings:
     - nbnl-term:fqqa7
     class_uri: cim:UsagePoint
-  UpdateInfo:
-    description: Specific type of information that was updated for this
-      dataset.
+  BusbarSection:
+    description: A conductor, or group of conductors, with negligible
+      impedance, that serve to connect other conducting equipment within a
+      single substation. Voltage measurements are typically obtained from
+      voltage transformers that are connected to busbar sections. A bus bar
+      section may have many physical terminals but for analysis is modelled
+      with exactly one logical terminal.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: Connector
+    class_uri: cim:BusbarSection
+  Connector:
+    description: A conductor, or group of conductors, with negligible
+      impedance, that serve to connect other conducting equipment within a
+      single substation and are modelled with a single logical terminal.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: ConductingEquipment
+    class_uri: cim:Connector
+  Bay:
+    description: A collection of power system resources (within a given
+      substation) including conducting equipment, protection relays,
+      measurements, and telemetry. A bay typically represents a physical
+      grouping related to modularization of equipment.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Core
+    is_a: EquipmentContainer
     attributes:
-      date:
-        description: Date of the update.
-        slot_uri: nl:UpdateInfo.date
-        range: date
-        required: true
+      breakerConfiguration:
+        description: Breaker configuration.
+        slot_uri: cim:Bay.breakerConfiguration
+        range: BreakerConfiguration
+        required: false
         multivalued: false
-      type:
-        description: Type of the update.
-        slot_uri: nl:UpdateInfo.type
-        range: UpdateInfoKind
-        required: true
+      busBarConfiguration:
+        description: Busbar configuration.
+        slot_uri: cim:Bay.busBarConfiguration
+        range: BusbarConfiguration
+        required: false
         multivalued: false
-    class_uri: nl:UpdateInfo
+    class_uri: cim:Bay
+  Switch:
+    description: A generic device designed to close, or open, or both, one or
+      more electric circuits.  All switches are two terminal devices including
+      grounding switches. The ACDCTerminal.connected at the two sides of the
+      switch shall not be considered for assessing switch connectivity, i.e.
+      only .normalOpen is relevant.
+    from_schema: https://cim.ucaiug.io/ns#TC57CIM.IEC61970.Base.Wires
+    is_a: ConductingEquipment
+    attributes:
+      normalOpen:
+        description: The attribute is used in cases when no Measurement for the
+          status value is present. If the Switch has a status measurement the
+          Discrete.normalValue is expected to match with the Switch.normalOpen.
+        slot_uri: cim:Switch.normalOpen
+        range: boolean
+        required: false
+        multivalued: false
+    class_uri: cim:Switch

@@ -1,0 +1,167 @@
+= Building the TSO High Voltage (HV) datasets
+
+This document describes from a functional perspective which datasets must be
+created by TenneT to meet the requirements for the Capacity Heatmap
+(*Capaciteitskaart v3*). Each profile to implement includes an
+`hv.example.jsonld` file describing the structure of the needed information.
+
+TenneT already provides a dataset under the
+https://modellen.netbeheernederland.nl/nbnl-equipment/draft-capaciteitskaart/index.html[Equipment
+(EQ) profile]. This dataset contains `eu:BoundaryPoint`-s and the containing
+`cim:Substation`-s. This dataset is referred to as the *Boundary dataset*.
+
+NOTE: The created datasets require the use of the
+https://modellen.netbeheernederland.nl/object-register/[NBNL Object Register]
+
+## Equipment (EQ)
+
+Dataproduct:: https://modellen.netbeheernederland.nl/nbnl-equipment/draft-capaciteitskaart/[Equipment (EQ)]
+
+Defines the electrical equipment in the network model, including their
+technical characteristics and relationships.
+
+* create a new HV dataset, add all instances to this dataset unless otherwise
+  specified
+* add `cim:Substation`-s for all stations in the HV grid not yet defined in the
+  Boundary dataset
+* add `cim:PowerTransformer`-s to each `cim:Substation` defined in the Boundary
+  dataset already provided by TenneT and the HV dataset.
+* add a `cim:PowerTransformerEnd`, `cim:Terminal`, `cim:ConnectivityNode` and
+  `cim:VoltageLevel`/`cim:BaseVoltage` for the primary side of each
+  `cim:PowerTransformer`
+* add a `cim:PowerTransformerEnd` and `cim:Terminal` for the secondary side of
+  the `cim:PowerTransformer`. Associate the `cim:Terminal` with a
+  `cim:ConnectivityNode` in the Boundary dataset
+* add a `cim:Contingency` for each congestion area defined by TenneT. Use the
+  short code as attribute `cim:IdentifiedObject`.name, the full name of the
+  congestion area as attribute `cim:IdentifiedObject`.description
+* add a `cim:ContingencyEquipment` for each `cim:PowerTransformer`, and
+  associate all `cim:ContingencyEquipment`-s with the `cim:Contingency`
+  (congestion area) they are a part of. The `cim:Contingency` is needed to add
+  congestion reports and demand/response congestion color
+* add `cim:ReportingGroup` for each congestion area, and associate all
+  `cim:PowerTransformer`-s that are a part of this congestion area. This
+  `cim:ReportingGroup` is used to communicate Queue information for the
+  congestion area
+* add `cim:ActivePowerLimit` and `cim:OperationalLimitSet` for each
+  `cim:PowerTransformer` to indicate available transport capacity (*aanwezige
+  transportcapaciteit*, ATC). Create separate `cim:ActivePowerLimit`-s for
+  demand/response
+
+### Capacity through the years
+
+A special case is required for communicating available transport capacity
+(*aanwezige transportcapaciteit*). Providing this information requires the use
+of `cim:ActivePowerLimit`, which does not have a timestamp. As a changing
+`cim:ActivePowerLimit` is a change to the grid connectivity, a **new dataset**
+is required for each *point in time*. The working group has decided that
+visualising changes in connectivity is not in scope for the MVP, so the new
+datasets can be almost identitical to the initial EQ dataset, with only the
+`cim:ActivePowerLimit`-s changing.
+
+This approach is not needed for *gevraagde transportcapaciteit* en *benodigde
+transportcapaciteit*, as these are modeled as `cim:Measurement`-s, which can
+include a timestamp.
+
+NOTE: We've already identified parts of the TenneT grid which would
+benefit from also communicating the grid changes, but that these are currently
+out of scope.
+
+## Operation (OP)
+
+Dataproduct:: https://modellen.netbeheernederland.nl/nbnl-operation/[Operation (OP)]
+
+Captures the real-time operational state and control information of the power
+system used for monitoring and running the network.
+
+* create a new HV dataset, add all instances to this dataset unless otherwise
+  specified
+* add a `cim:Analog` for *gevraagde transportcapaciteit* and *benodigde
+  transportcapaciteit*. Associate with the a `cim:PowerTransformer` in
+  *Equipment (EQ)*. Do this for both demand/response: 4x `cim:Analog`
+
+## Asset (AS)
+
+Dataproduct:: https://modellen.netbeheernederland.nl/nbnl-asset/[Asset (AS)]
+
+Describes the physical assets owned or managed by the utility, including their
+identity, lifecycle, and management information.
+
+* create a new HV dataset, add all instances to this dataset unless otherwise
+  specified
+* add a nl:CongestionDocument for each congestion area
+* add an nl:Queue for each congestion area defined in *Equipment (EQ)*.
+  Associate with a `cim:ReportingGroup`
+* add a `cim:Asset` for each `cim:PowerTransformer` or `cim:Substation`
+  impacted by work on the grid. Add a `cim:Work` for each grid expansion and
+  associate to the `cim:Asset`
+
+## Mapping
+
+This is an initial mapping of the information in the current
+https://modellen.netbeheernederland.nl/capaciteitskaart/[JSON] model to the new
+profiles.
+
+CAUTION: there a structural differences between the current model and profiles.
+Not all attributes can be mapped
+
+[cols="2, 1, 2, 2"]
+|===
+|Heatmap v2 |Profile |CIM class |Attribute
+
+|short_code
+|EQ
+|cim:Substation
+|cim:IdentifiedObject.name
+
+|demand_available_capacity
+|EQ
+|cim:ActivePower
+|cim:ActivePower.value
+
+|demand_constraint
+|AS
+|nl:CongestionDocument
+|nl:Contingency.constraint
+
+|demand_capacity_in_queue
+|OP
+|nl:Queue
+|nl:Queue.capacity
+
+|demand_requests_in_queue
+|OP
+|nl:Queue
+|nl:Queue.requests
+
+|demand_quoted_capacity
+|OP
+|cim:AnalogValue
+|cim:AnalogValue.value
+
+|demand_forecast_capacity
+|OP
+|cim:AnalogValue
+|cim:AnalogValue.value
+
+|project_name
+|AS
+|cim:Work
+|cim:IdentifiedObject.description
+
+|source
+|AS
+|cim:Work
+|nl:Work.source
+
+|status_kind
+|AS
+|cim:Work
+|cim:BaseWork.statusKind
+
+|congestion_url
+|AS
+|nl:CongestionDocument
+|cim:Document.electronicAddress
+
+|===
