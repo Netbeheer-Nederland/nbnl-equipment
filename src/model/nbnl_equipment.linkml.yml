@@ -329,7 +329,9 @@ classes:
       ConnectivityNodeContainer:
         description: Container of this connectivity node.
         slot_uri: cim:ConnectivityNode.ConnectivityNodeContainer
-        range: VoltageLevel
+        any_of:
+          - range: VoltageLevel
+          - range: Bay
         required: true
         multivalued: false
       BoundaryPoint:
@@ -907,6 +909,12 @@ classes:
         range: BusbarConfiguration
         required: false
         multivalued: false
+      VoltageLevel:
+        slot_uri: cim:Bay.VoltageLevel
+        range: VoltageLevel
+        required: true
+        multivalued: false
+        description: The voltage level containing this bay.
     class_uri: cim:Bay
   Switch:
     description: A generic device designed to close, or open, or both, one or
