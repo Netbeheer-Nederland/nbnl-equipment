@@ -122,6 +122,9 @@ ActivePowerLimit -- ActivePower
 ActivePowerLimit -- OperationalLimitSet
 ActivePowerLimit -- SeriesEquipmentDependentLimit
 BaseVoltage -- Voltage
+Bay -- VoltageLevel
+BusbarSection -- VoltageLevel
+ConnectivityNode -- Bay
 ConnectivityNode -- BoundaryPoint
 ConnectivityNode -- VoltageLevel
 ContingencyEquipment -- ACLineSegment
@@ -141,7 +144,6 @@ PowerTransformerEnd -- Terminal
 ReportingGroup -- ReportingSuperGroup
 SubGeographicalRegion -- GeographicalRegion
 Substation -- SubGeographicalRegion
-Switch -- Bay
 Terminal -- ACLineSegment
 Terminal -- BusbarSection
 Terminal -- ConnectivityNode
@@ -150,7 +152,6 @@ Terminal -- PowerTransformer
 Terminal -- Switch
 UsagePoint -- EnergyConsumer
 VoltageLevel -- BaseVoltage
-VoltageLevel -- Bay
 VoltageLevel -- Substation
 ----
 
