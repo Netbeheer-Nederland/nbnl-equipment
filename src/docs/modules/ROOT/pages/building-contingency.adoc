@@ -1,0 +1,131 @@
+= Building a Contingency
+
+Contigency is a part of the NBNL Equipment and NBNL Asset Profilegroup and this page defines how the contigency for equipment in a power network are modelled. This document explains the structure and how instances interact across datasets.
+
+== Contingency
+Basically a contingency is a situation in which a piece of equipment is not available for use. In recent years, we have also observed that it is not only situations where equipment is (temporarily) unavailable, for example due to maintenance or a malfunction, but also arises from the fact that the operational limit is reached. This creates semi-permanent bottlenecks where the related equipment reaches or has reached its limit. The most common solution is to carry out a grid expansion in which the capacity of the relevant equipment is increased and/or additional equipment is added. In the meantime, it is important that the grid operator has insight into the bottlenecks and their impact on the grid. Contingency is a way to provide this insight.
+
+Contingencies can be based on a single equipment, or it can be a combination of multiple equipments. In the current situation, the equipment consists of power transformers or acline segments, or even a combination of both.
+
+.NBNL EQ (Equipment) Profile
+[source,json]
+----
+{
+  "@id": "urn:uuid:bf152016-1d5b-4192-a324-456a2f57a41e",
+  "@type": "cim:Contingency", <1>
+  "cim:Contingency.mustStudy": true, <4>
+  "cim:IdentifiedObject.mRID": "bf152016-1d5b-4192-a324-456a2f57a41e",
+  "cim:IdentifiedObject.name": "Knelpunt Onderstation VL4 & VL5 10 kV"
+},
+{
+  "@id": "urn:uuid:2b115331-fca3-4dea-90d5-d6dab38091ba",
+  "@type": "cim:ContingencyEquipment", <2>
+  "cim:ContingencyEquipment.Equipment": {
+    "@id": "urn:uuid:b7949224-9031-4365-a891-ffcdac3efcf7"
+  },
+  "cim:ContingencyElement.Contingency": {
+    "@id": "urn:uuid:bf152016-1d5b-4192-a324-456a2f57a41e"
+  },
+  "cim:IdentifiedObject.mRID": "2b115331-fca3-4dea-90d5-d6dab38091ba"
+},
+{
+  "@id": "urn:uuid:d8017ae4-bbcb-4994-b162-dfbb1e70d7d2",
+  "@type": "cim:ContingencyEquipment", <2>
+  "cim:ContingencyEquipment.Equipment": {
+    "@id": "urn:uuid:a5b57c56-a824-411c-b0b9-db68bb2a9fe6" <3>
+  },
+  "cim:ContingencyElement.Contingency": {
+    "@id": "urn:uuid:bf152016-1d5b-4192-a324-456a2f57a41e"
+  },
+  "cim:IdentifiedObject.mRID": "d8017ae4-bbcb-4994-b162-dfbb1e70d7d2"
+}
+----
+
+<1> The Contingency is associated with
+<2> ContingencyEquipment(s), which are associated with
+<3> a piece of Equipment.
+<4> Indicates if the contingency must be studied. If true, the contingency is a must study contingency. If false, the contingency is a may study contingency.
+Basically every Contingency with a link:#_ragkind[RAGKind] color of Orange or Red is a MustStudy: True situation.
+
+== Congestion Document
+The https://modellen.netbeheernederland.nl/nbnl-asset/upcoming/schema/class/CongestionDocument.html[nl:CongestionDocument] is used to report additional information regarding the congestion for a piece or a set of equipments. For example, the congestion report is used to define the color (indication of the required transport capacity) and alleviationYear (Year in which the congestion is or will be resolved) and a hyperlink to the congestion management study.
+
+Not in all situations a congestion report (ElectronicAddress) is available, but if it is available, it is linked to the Congestion Document.
+For the cases where there is a Yellow color indication of the required transport capacity (link:#_ragkind[RAGKind]), a congestion report is not available. In those cases, there is—as yet—no formal bottleneck and/or study into the possibilities for congestion management.
+
+.NBNL AS (Asset) Profile
+[source,json]
+----
+{
+  "@id": "urn:uuid:a290cf3c-7570-4b03-96fb-a04ac0f906ec",
+  "@type": "nl:CongestionDocument",
+  "nl:CongestionDocument.Contingency": {
+    "@id": "urn:uuid:bf152016-1d5b-4192-a324-456a2f57a41e"
+  },
+  "nl:CongestionDocument.constraint": {
+    "@id": "nl:RAGKind.red" <1>
+  },
+  "nl:CongestionDocument.alleviationYear": 2028, <2>
+  "cim:Document.electronicAddress": {
+    "@id": "urn:uuid:579fd3cd-ba97-453f-a8e9-61ada7ea1d3b"
+  },
+  "nl:CongestionDocument.direction": {
+    "@id": "cim:InterTieDirection.E" <4>
+  },
+  "cim:IdentifiedObject.mRID": "a290cf3c-7570-4b03-96fb-a04ac0f906ec",
+  "cim:IdentifiedObject.name": "Knelpunt Onderstation 150 kV"
+},
+{
+  "@id": "urn:uuid:579fd3cd-ba97-453f-a8e9-61ada7ea1d3b",
+  "@type": "cim:ElectronicAddress",
+  "cim:ElectronicAddress.web": "https://example.com/onderstation-pt1" <3>
+}
+----
+<1> Ragkind.color; the intensity, expressed in a color, of the congestion based on the congestion report, see the ragkind enumeration.
+<2> Year in which the congestion is resolved.
+<3> Hyperlink to the congestion management study
+<4> The direction of the inter-tie (Import/Export)
+
+=== Ragkind Color
+The Ragkind Color gives an indication of the required transport capacity (https://begrippen.netbeheernederland.nl/doc/7bs28[benodigde transportcapaciteit -BTC]) in a feeding/contingency area. The https://modellen.netbeheernederland.nl/nbnl-asset/upcoming/schema/enumeration/RAGKind.html[ragkind enumeration] of the color is defined as part of the NBNL Assetprofile
+
+
+[%autowidth]
+|===
+|Color |Description
+|yellow| Limited availability, without queue (Transportcapaciteit beperkt beschikbaar zonder wachtrij).
+|amber| Under investigation, with queue (Voedingsgebied is in onderzoek met wachtrij).
+|red| Shortage of transport capacity, with queue (Tekort aan Transportcapaciteit met wachtrij).
+|===
+
+== Contigency Area (Group of Location)
+The ContingencyEquipment is associated with a Contingency, which is associated with a CongestionDocument. The CongestionDocument is associated with a Location. The Location is associated with a StreetAddress, which contains a postalCode. The postalCode can be used to determine the geographical area of the congestion.
+
+In most situations, multiple 6-digit postcode areas—and thus multiple locations—are associated with the congestion document.
+
+.NBNL GL (GeoLocation) Profile
+[source,json]
+----
+    {
+      "@id": "urn:uuid:513b9237-4dfd-49cc-a40a-87c4411223c0",
+      "@type": "cim:Location",
+      "cim:Location.mainAddress": {
+        "@id": "urn:uuid:46e63aca-fe40-46f0-ba4f-6552425d485e"
+      },
+      "cim:Location.PowerSystemResources": [
+        "urn:uuid:a5dfce7b-2748-4390-8aee-bedf3641a9b8"
+      ],
+      "nl:Location.CongestionDocument": [
+        "urn:uuid:a290cf3c-7570-4b03-96fb-a04ac0f906ec" <2>
+      ],
+      "cim:IdentifiedObject.mRID": "513b9237-4dfd-49cc-a40a-87c4411223c0"
+    },
+    {
+      "@id": "urn:uuid:46e63aca-fe40-46f0-ba4f-6552425d485e",
+      "@type": "cim:StreetAddress",
+      "cim:StreetAddress.postalCode": "1234AB" <1>
+    }
+----
+
+<1> The 6-digit postal code of the location. This can be used to determine the geographical area of the congestion.
+<2> The congestion document which is associated with the location.
