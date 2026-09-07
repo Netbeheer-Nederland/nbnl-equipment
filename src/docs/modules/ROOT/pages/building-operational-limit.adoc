@@ -66,8 +66,8 @@ Below an Operational Limit based on active power (the ActivePowerLimit) with its
 <5> The direction of the power flow is defined as positiveFlowIn = False, which means that the limit applies to the power flowing out of the equipment. Because this limit is related to the T2 terminal of the PowerTransformerEnd, this means that a positieve limit applies to the power flowing out of the equipment (i.e., Consumption).
 <6> The operational limit is associated with an OperationalLimitSet, which groups together different types of operational limits that apply to the equipment.
 
-== Operational Limit of a single piece of equipment
-The OperationalLimitSet object is associated with a Terminal of for example a PowerTransformerEnd. This means that for the operational limits defined in this OperationalLimitSet in case of power or current the flow direction is based on the terminal and equipment association. The OperationalLimitSet groups together different types of operational limits that apply to the equipment.
+== Operational Limit for a single piece of equipment
+The OperationalLimitSet object is associated with a Terminal for example a PowerTransformerEnd. This means that for the operational limits defined in this OperationalLimitSet in case of power or current the flow direction is based on the terminal and equipment association. The OperationalLimitSet groups together different types of operational limits that apply to the equipment.
 
 .Operational Limit Set
 [source,json]
@@ -85,7 +85,7 @@ The OperationalLimitSet object is associated with a Terminal of for example a Po
     }
 ----
 
-== operational limit of a set of equipment
+== operational limit for a set of equipment
 When there is a need to define a constraint based on a grouping of equipment for example in case of redundancy (n-1) then
 the OperationalLimit has an association available with the https://modellen.netbeheernederland.nl/tc57cim/cim17/schema/class/ActivePowerLimit.html#LimitDependencyModel[cim:ActivePowerLimit.LimitDependencyModel].
 

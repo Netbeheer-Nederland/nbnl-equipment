@@ -56,9 +56,9 @@ For the cases where there is a Yellow color indication of the required transport
 {
   "@id": "urn:uuid:a290cf3c-7570-4b03-96fb-a04ac0f906ec",
   "@type": "nl:CongestionDocument",
-  "nl:CongestionDocument.Contingency": {
-    "@id": "urn:uuid:bf152016-1d5b-4192-a324-456a2f57a41e"
-  },
+  "nl:CongestionDocument.Contingency": [
+    "urn:uuid:bf152016-1d5b-4192-a324-456a2f57a41e"
+  ],
   "nl:CongestionDocument.constraint": {
     "@id": "nl:RAGKind.red" <1>
   },
@@ -67,24 +67,29 @@ For the cases where there is a Yellow color indication of the required transport
     "@id": "urn:uuid:579fd3cd-ba97-453f-a8e9-61ada7ea1d3b"
   },
   "nl:CongestionDocument.direction": {
-    "@id": "cim:InterTieDirection.E" <4>
+    "@id": "cim:InterTieDirection.E" <3>
   },
+  "nl:CongestionDocument.Location": [
+    {
+        "@id": "urn:uuid:513b9237-4dfd-49cc-a40a-87c4411223c0" <4>
+    }
+  ],
   "cim:IdentifiedObject.mRID": "a290cf3c-7570-4b03-96fb-a04ac0f906ec",
   "cim:IdentifiedObject.name": "Knelpunt Onderstation 150 kV"
 },
 {
   "@id": "urn:uuid:579fd3cd-ba97-453f-a8e9-61ada7ea1d3b",
   "@type": "cim:ElectronicAddress",
-  "cim:ElectronicAddress.web": "https://example.com/onderstation-pt1" <3>
+  "cim:ElectronicAddress.web": "https://example.com/onderstation-pt1" <5>
 }
 ----
 <1> Ragkind.color; the intensity, expressed in a color, of the congestion based on the congestion report, see the ragkind enumeration.
 <2> Year in which the congestion is resolved.
-<3> Hyperlink to the congestion management study
-<4> The direction of the inter-tie (Import/Export).
+<3> The direction of the inter-tie (Import/Export).
     * I = Import (feed-in) into the grid, from the perspective of the system operator.
 * E= Export (load) from the grid, from the perspective of the system operator.
-
+<4> The location(s) linked to the Congestion Document (congestion management study)
+<5> Hyperlink to the congestion management study
 
 === Ragkind Color
 The Ragkind Color gives an indication of the required transport capacity (https://begrippen.netbeheernederland.nl/doc/7bs28[benodigde transportcapaciteit -BTC]) in a feeding/contingency area. The https://modellen.netbeheernederland.nl/nbnl-asset/upcoming/schema/enumeration/RAGKind.html[ragkind enumeration] of the color is defined as part of the NBNL Assetprofile
@@ -98,7 +103,7 @@ The Ragkind Color gives an indication of the required transport capacity (https:
 |red| Shortage of transport capacity, with queue (Tekort aan Transportcapaciteit met wachtrij).
 |===
 
-== Contigency Area (Grouping of Locations)
+== Contingency Area (Grouping of Locations)
 The ContingencyEquipment is associated with a Contingency, which is associated with a CongestionDocument. The CongestionDocument is associated with a Location. The Location is associated with a StreetAddress, which contains a postalCode. The postalCode can be used to determine the geographical area of the congestion.
 
 In most situations, multiple 6-digit postcode areas—and thus multiple locations—are associated with the congestion document.
@@ -113,10 +118,7 @@ In most situations, multiple 6-digit postcode areas—and thus multiple location
         "@id": "urn:uuid:46e63aca-fe40-46f0-ba4f-6552425d485e"
       },
       "cim:Location.PowerSystemResources": [
-        "urn:uuid:a5dfce7b-2748-4390-8aee-bedf3641a9b8"
-      ],
-      "nl:Location.CongestionDocument": [
-        "urn:uuid:a290cf3c-7570-4b03-96fb-a04ac0f906ec" <2>
+         "urn:uuid:a5dfce7b-2748-4390-8aee-bedf3641a9b8" <2>
       ],
       "cim:IdentifiedObject.mRID": "513b9237-4dfd-49cc-a40a-87c4411223c0"
     },
@@ -128,4 +130,5 @@ In most situations, multiple 6-digit postcode areas—and thus multiple location
 ----
 
 <1> The 6-digit postal code of the location. This can be used to determine the geographical area of the congestion.
-<2> The congestion document which is associated with the location.
+<2> The PowerSystemResource associated with the location. In most cases the aggregated EnergyConsumer representing the PostalCode Area below the AClinesegment or Powertransformer(end).
+
