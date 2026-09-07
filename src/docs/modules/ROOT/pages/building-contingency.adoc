@@ -13,7 +13,6 @@ Contingencies can be based on a single equipment, or it can be a combination of 
 {
   "@id": "urn:uuid:bf152016-1d5b-4192-a324-456a2f57a41e",
   "@type": "cim:Contingency", <1>
-  "cim:Contingency.mustStudy": true, <4>
   "cim:IdentifiedObject.mRID": "bf152016-1d5b-4192-a324-456a2f57a41e",
   "cim:IdentifiedObject.name": "Knelpunt Onderstation VL4 & VL5 10 kV"
 },
@@ -44,8 +43,6 @@ Contingencies can be based on a single equipment, or it can be a combination of 
 <1> The Contingency is associated with
 <2> ContingencyEquipment(s), which are associated with
 <3> a piece of Equipment.
-<4> Indicates if the contingency must be studied. If true, the contingency is a must study contingency. If false, the contingency is a may study contingency.
-Basically every Contingency with a link:#_ragkind[RAGKind] color of Orange or Red is a MustStudy: True situation.
 
 == Congestion Document
 The https://modellen.netbeheernederland.nl/nbnl-asset/upcoming/schema/class/CongestionDocument.html[nl:CongestionDocument] is used to report additional information regarding the congestion for a piece or a set of equipments. For example, the congestion report is used to define the color (indication of the required transport capacity) and alleviationYear (Year in which the congestion is or will be resolved) and a hyperlink to the congestion management study.
@@ -84,7 +81,10 @@ For the cases where there is a Yellow color indication of the required transport
 <1> Ragkind.color; the intensity, expressed in a color, of the congestion based on the congestion report, see the ragkind enumeration.
 <2> Year in which the congestion is resolved.
 <3> Hyperlink to the congestion management study
-<4> The direction of the inter-tie (Import/Export)
+<4> The direction of the inter-tie (Import/Export).
+    * I = Import (feed-in) into the grid, from the perspective of the system operator.
+* E= Export (load) from the grid, from the perspective of the system operator.
+
 
 === Ragkind Color
 The Ragkind Color gives an indication of the required transport capacity (https://begrippen.netbeheernederland.nl/doc/7bs28[benodigde transportcapaciteit -BTC]) in a feeding/contingency area. The https://modellen.netbeheernederland.nl/nbnl-asset/upcoming/schema/enumeration/RAGKind.html[ragkind enumeration] of the color is defined as part of the NBNL Assetprofile
@@ -98,7 +98,7 @@ The Ragkind Color gives an indication of the required transport capacity (https:
 |red| Shortage of transport capacity, with queue (Tekort aan Transportcapaciteit met wachtrij).
 |===
 
-== Contigency Area (Group of Location)
+== Contigency Area (Grouping of Locations)
 The ContingencyEquipment is associated with a Contingency, which is associated with a CongestionDocument. The CongestionDocument is associated with a Location. The Location is associated with a StreetAddress, which contains a postalCode. The postalCode can be used to determine the geographical area of the congestion.
 
 In most situations, multiple 6-digit postcode areas—and thus multiple locations—are associated with the congestion document.
