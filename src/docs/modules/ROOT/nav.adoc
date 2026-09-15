@@ -1,4 +1,0 @@
-* xref::building.adoc[]
-* xref::building-tso-hv.adoc[]
-* xref::building-operational-limit.adoc[]
-* xref::building-contingency.adoc[]
