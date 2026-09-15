@@ -791,7 +791,7 @@ classes:
         range: boolean
         required: false
         multivalued: false
-    exact_mappings:
+    broad_mappings:
     - vocab:knelpunt
     class_uri: cim:Contingency
   ContingencyElement:
